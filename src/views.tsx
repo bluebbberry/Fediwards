@@ -7,7 +7,7 @@ export const Layout: FC = (props) => (
       <meta charset="utf-8" />
       <meta name="viewport" content="width=device-width, initial-scale=1" />
       <meta name="color-scheme" content="light dark" />
-      <title>Sidekicks</title>
+      <title>Sidekick</title>
       <link
         rel="stylesheet"
         href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css"
@@ -26,7 +26,7 @@ export interface HomeProps extends PostListProps {
 export const Home: FC<HomeProps> = ({ user, posts }) => (
   <>
     <hgroup>
-      <h1>{user.name}'s microblog</h1>
+      <h1>{user.name}'s Sidekick</h1>
       <p>
         <a href={`/users/${user.username}`}>{user.name}'s profile</a>
       </p>
@@ -57,7 +57,7 @@ export const Home: FC<HomeProps> = ({ user, posts }) => (
 
 export const SetupForm: FC = () => (
   <>
-    <h1>Set up your microblog</h1>
+    <h1>Set up your Sidekick-Instance</h1>
     <form method="post" action="/setup">
       <fieldset>
         <label>
