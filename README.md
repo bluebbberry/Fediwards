@@ -1,4 +1,4 @@
-Sidekick - Federated microblog example using Fedify
+Sidekicks - Federated microblog example using Fedify
 ========================================
 
 Bot-centered Fediverse app. Users post ONLY through bots. On sign-up, every user chooses a bot (or Sidekick) and can then customize user experience and execute commands with it by posting to the bot. The post prompt is made customizable and elevated in this sense (fedi-app with custom-prompts).
