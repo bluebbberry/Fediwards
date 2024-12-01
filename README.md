@@ -6,7 +6,7 @@ A Mastodon web client, in which the User can post through a variety of Bots.
 
 ## Architecture
 
-Sidekick makes use of masto.js to post to the API of a a specified mastodon server.
+Sidekick makes use of masto.js to post to the API of a specified mastodon server.
 
 ![architecture_image](architecture.png)
 
