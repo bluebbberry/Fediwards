@@ -16,10 +16,6 @@ const masto = createRestAPIClient({
   accessToken: TOKEN,
 });
 
-//const status = await masto.v1.statuses.create({
-//  status: "Hello from #mastojs!",
-//});
-
 // ============== REST API ===================
 const app = express();
 app.use(express.json());
