@@ -3,3 +3,28 @@
     Send to me account.
   </button>
 </div>
+
+<div class="container my-5">
+  <div class="text-center mb-4">
+    <h1>Twitter Clone</h1>
+  </div>
+
+  <!-- Input Section -->
+  <div class="mb-3">
+    <textarea [(ngModel)]="newMessage" class="form-control" rows="3" placeholder="What's happening?"></textarea>
+  </div>
+  <div class="text-end">
+    <button (click)="sendMessage()" class="btn btn-primary">Send</button>
+  </div>
+
+  <!-- Messages Section -->
+  <div class="mt-4">
+    <h2>Messages</h2>
+    <ul class="list-group">
+      <li *ngFor="let message of messages" class="list-group-item">
+        {{ message }}
+      </li>
+    </ul>
+  </div>
+</div>
+
