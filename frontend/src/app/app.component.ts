@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { StartPageComponent } from './start-page/start-page.component'
+import { StartPageComponent } from './start-page/start-page.component';
+import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
 
 @Component({
   selector: 'app-root',
