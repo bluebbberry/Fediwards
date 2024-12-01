@@ -1,11 +1,20 @@
-<h1>Angular Router App</h1>
-<nav>
-  <ul>
-    <li><a href="/" routerLinkActive="active">First Component</a></li>
-    <li><a href="/choose-sidekick" routerLinkActive="active">Second Component</a></li>
-    <li><a href="/chat" routerLinkActive="active">Chat</a></li>
-  </ul>
+<!-- navbar.component.html -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">Sidekick</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ms-auto">
+        <li><a href="/" routerLinkActive="active" style="margin-right: 20px">Start</a></li>
+        <li><a href="/choose-sidekick" routerLinkActive="active" style="margin-right: 20px">Choose your first sidekick</a></li>
+        <li><a href="/chat" routerLinkActive="active" style="margin-right: 20px">Chat</a></li>
+      </ul>
+    </div>
+  </div>
 </nav>
+
 
 <!-- The routed views render on <router-outlet> -->
 <router-outlet></router-outlet>

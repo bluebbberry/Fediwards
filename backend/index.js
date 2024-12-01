@@ -1,5 +1,6 @@
 import { createRestAPIClient } from "masto";
 import express from 'express';
+import cors from "cors";
 
 const args = process.argv.slice(2);
 if (args.length < 2) {
@@ -15,13 +16,14 @@ const masto = createRestAPIClient({
   accessToken: TOKEN,
 });
 
-//const status = await masto.v1.statuses.create({
-//  status: "Hello from #mastojs!",
-//});
-
 // ============== REST API ===================
 const app = express();
 app.use(express.json());
+app.use(cors({
+    origin: 'http://localhost:4200',
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    allowedHeaders: ['Content-Type', 'Authorization']
+}));
 
 const PORT = 3000;
 
@@ -29,17 +31,21 @@ app.listen(PORT, () => {
   console.log("Server Listening on PORT:", PORT);
 });
 
-async function sendMsgToServer() {
+async function sendMsgToServer(message, sidekick) {
+    if (sidekick === 'spark') {
+        message = message.toUpperCase();
+    }
+
     const status = await masto.v1.statuses.create({
-       status: "Hello from #mastojs!",
+       status: message,
     });
     console.log(status.url);
 }
 
-app.get("/status", (request, response) => {
+app.post("/status", (request, response) => {
    // Send message to mastodon server
-   sendMsgToServer();
-   response.header("Access-Control-Allow-Origin", "*");
+    console.log(request.body);
+   sendMsgToServer(request.body["message"], request.body["sidekick"]);
    response.sendStatus(200);
    response.end();
 });
