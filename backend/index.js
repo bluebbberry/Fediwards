@@ -23,7 +23,11 @@ const masto = createRestAPIClient({
 // ============== REST API ===================
 const app = express();
 app.use(express.json());
-app.use(cors());
+app.use(cors({
+    origin: 'http://localhost:4200',
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    allowedHeaders: ['Content-Type', 'Authorization']
+}));
 
 const PORT = 3000;
 
@@ -42,7 +46,6 @@ app.post("/status", (request, response) => {
    // Send message to mastodon server
     console.log(request.body);
    sendMsgToServer(request.body);
-   response.header("Access-Control-Allow-Origin", "*");
    response.sendStatus(200);
    response.end();
 });
