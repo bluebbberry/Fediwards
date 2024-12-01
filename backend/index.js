@@ -31,9 +31,13 @@ app.listen(PORT, () => {
   console.log("Server Listening on PORT:", PORT);
 });
 
-async function sendMsgToServer(message) {
+async function sendMsgToServer(message, sidekick) {
+    if (sidekick === 'spark') {
+        message = message.toUpperCase();
+    }
+
     const status = await masto.v1.statuses.create({
-       status: message["message"],
+       status: message,
     });
     console.log(status.url);
 }
@@ -41,7 +45,7 @@ async function sendMsgToServer(message) {
 app.post("/status", (request, response) => {
    // Send message to mastodon server
     console.log(request.body);
-   sendMsgToServer(request.body);
+   sendMsgToServer(request.body["message"], request.body["sidekick"]);
    response.sendStatus(200);
    response.end();
 });

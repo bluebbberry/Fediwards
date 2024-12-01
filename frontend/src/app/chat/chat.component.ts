@@ -20,7 +20,7 @@ export class ChatComponent {
 
   sendToMyAccount() {
     console.log("Clicked on send");
-    this.microblogService.sendMessage(this.sidekickService.selectedSidekick + ": " + this.newMessage);
+    this.microblogService.sendMessage(this.newMessage, this.sidekickService.selectedSidekick!);
   }
 
   onChange(value: string) {
