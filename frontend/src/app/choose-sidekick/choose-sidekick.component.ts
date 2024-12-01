@@ -16,7 +16,7 @@ export class ChooseSidekickComponent {
     this.router.navigate(['chat']);
   }
 
-  onChange(value: any) {
+  onChange(value: string) {
     this.sidekickService.selectedSidekick = value;
   }
 }
