@@ -18,6 +18,9 @@ export class AppComponent {
   sendToMyAccount() {
     console.log("Clicked on send");
     this.http
-      .get("http://localhost:3000/status").subscribe((response: any) => console.log("Success"));
+      .get("http://localhost:3000/status", { responseType: 'text' })
+      .subscribe((response: any) => console.log("Success"), (error) => {
+        console.error(error);
+      });
   }
 }

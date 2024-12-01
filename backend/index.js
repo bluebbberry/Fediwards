@@ -34,11 +34,12 @@ async function sendMsgToServer() {
        status: "Hello from #mastojs!",
     });
     console.log(status.url);
-    return status;
 }
 
 app.get("/status", (request, response) => {
    // Send message to mastodon server
-   const status = sendMsgToServer();
-   response.send(status);
+   sendMsgToServer();
+   response.header("Access-Control-Allow-Origin", "*");
+   response.sendStatus(200);
+   response.end();
 });
