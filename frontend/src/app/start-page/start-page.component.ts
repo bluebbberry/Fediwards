@@ -9,4 +9,5 @@ import { Component } from '@angular/core';
   imports: []
 })
 export class StartPageComponent {
+
 }
