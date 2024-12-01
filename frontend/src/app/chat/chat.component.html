@@ -1,12 +1,6 @@
-<div>
-  <button class="btn btn-primary" (click)="sendToMyAccount()">
-    Send to me account.
-  </button>
-</div>
-
 <div class="container my-5">
   <div class="text-center mb-4">
-    <h1>Twitter Clone</h1>
+    <h1>Post Messages</h1>
   </div>
 
   <!-- Input Section -->
@@ -14,7 +8,7 @@
     <textarea [(ngModel)]="newMessage" class="form-control" rows="3" placeholder="What's happening?"></textarea>
   </div>
   <div class="text-end">
-    <button (click)="sendMessage()" class="btn btn-primary">Send</button>
+    <button (click)="sendToMyAccount()" class="btn btn-primary">Send</button>
   </div>
 
   <!-- Messages Section -->

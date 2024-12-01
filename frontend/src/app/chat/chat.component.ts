@@ -19,13 +19,6 @@ export class ChatComponent {
 
   sendToMyAccount() {
     console.log("Clicked on send");
-    this.microblogService.sendMessage("Test");
-  }
-
-  sendMessage() {
-    if (this.newMessage.trim()) {
-      this.messages.push(this.newMessage.trim());
-      this.newMessage = '';
-    }
+    this.microblogService.sendMessage(this.newMessage);
   }
 }
