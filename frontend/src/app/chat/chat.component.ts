@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import {MicroblogService} from "../services/microblog.service";
 
 @Component({
   selector: 'app-chat',
@@ -14,15 +15,11 @@ export class ChatComponent {
   messages: string[] = [];
   newMessage: string = '';
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private microblogService: MicroblogService) { }
 
   sendToMyAccount() {
     console.log("Clicked on send");
-    this.http
-      .get("http://localhost:3000/status", { responseType: 'text' })
-      .subscribe((response: any) => console.log("Success"), (error) => {
-        console.error(error);
-    });
+    this.microblogService.sendMessage("Test");
   }
 
   sendMessage() {

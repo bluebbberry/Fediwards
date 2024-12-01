@@ -1,0 +1,7 @@
+{
+  "/status": {
+    "target": "http://localhost:3000/status",
+    "secure": false,
+    "changeOrigin": true
+  }
+}

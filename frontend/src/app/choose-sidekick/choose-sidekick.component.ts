@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import {SidekickService} from "../services/sidekick.service";
 
 @Component({
   selector: 'app-choose-sidekick',
@@ -9,9 +10,13 @@ import { Router } from '@angular/router';
   styleUrl: './choose-sidekick.component.scss'
 })
 export class ChooseSidekickComponent {
-  constructor(private router: Router) {}
+  constructor(private router: Router, private sidekickService: SidekickService) {}
 
   clickedOnStart() {
     this.router.navigate(['chat']);
+  }
+
+  onChange(value: any) {
+    this.sidekickService.selectedSidekick = value;
   }
 }
