@@ -18,7 +18,7 @@ Also, you need an mastodon account and API Token (you can get this easily via th
 
 ### Frontend
 
-Run under ``frontend/src`` the command:
+Run the following command under the ``frontend``-folder:
 
 ````bash
 npm start
@@ -26,7 +26,7 @@ npm start
 
 ### Backend
 
-Run the backend with the following command under ``backend`:
+Run the following command under the `backend`-folder:
 
 ````bash
 node .\index.js "URL" "MY_TOKEN"
@@ -38,4 +38,4 @@ For example:
 node .\index.js "https://mastodon.social" "MY_TOKEN"
 ````
 
-Now you should be all set and able to post to your Mastodon account with Sidekick.
+Congratulations! Now you should be all set and able to post to your Mastodon account with Sidekick.
