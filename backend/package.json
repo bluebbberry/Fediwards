@@ -11,6 +11,7 @@
   "description": "",
   "type": "module",
   "dependencies": {
+    "express": "^4.21.1",
     "masto": "^6.10.1"
   }
 }
