@@ -11,8 +11,4 @@ import { StartPageComponent } from './start-page/start-page.component'
 })
 export class AppComponent {
   title = 'frontend';
-
-  sendToMyAccount() {
-    console.log("Clicked on send");
-  }
 }

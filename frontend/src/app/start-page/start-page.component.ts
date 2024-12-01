@@ -9,4 +9,7 @@ import { Component } from '@angular/core';
   imports: []
 })
 export class StartPageComponent {
+  sendToMyAccount() {
+    console.log("Clicked on send");
+  }
 }
