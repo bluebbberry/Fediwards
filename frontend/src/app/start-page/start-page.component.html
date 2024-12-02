@@ -3,6 +3,9 @@
     <div class="col-md-8 col-lg-6">
       <img src="sidekick-image.jpg" alt="Sidekick Logo" class="img-fluid" (click)="clickedOnStart()">
     </div>
-    <button class="btn" class="btn btn-outline-dark btn-lg w-60 mb-4" (click)="clickedOnStart()">Start</button>
+    <div class="card-header bg-transparent pb-5">
+      <h2 class="text-red mb-0">{{ welcomeText() }}</h2>
+    </div>
+    <button class="btn" class="btn btn-outline-dark btn-lg w-60 mb-4" (click)="clickedOnStart()">{{ confirmBtnText() }}</button>
   </div>
 </div>

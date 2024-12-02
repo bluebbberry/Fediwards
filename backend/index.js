@@ -34,18 +34,40 @@ app.listen(PORT, () => {
 async function sendMsgToServer(message, sidekick) {
     if (sidekick === 'spark') {
         message = message.toUpperCase();
+        await send(message);
+    } else if (sidekick === 'jea') {
+        const msgSplit = splitAfterHash(message);
+        if (msgSplit.length > 1) {
+            const noOfMinutes = msgSplit[0];
+            const restOfMessage = msgSplit[1];
+            setTimeout(() => send(restOfMessage), 1000 * noOfMinutes * 60);
+        } else {
+            await send(message);
+        }
+    } else {
+        await send(message);
     }
+}
 
+async function send(message, sidekick) {
     const status = await masto.v1.statuses.create({
-       status: message,
+        status: message,
     });
     console.log(status.url);
 }
 
+function splitAfterHash(str) {
+    if (str[0] !== '#') return [str];
+    const msgSplit = str.split(" ");
+    const command = msgSplit[0];
+    const restOfTheText = str.substring(command.length + 1);
+    return [command, restOfTheText];
+}
+
 app.post("/status", (request, response) => {
-   // Send message to mastodon server
-    console.log(request.body);
-   sendMsgToServer(request.body["message"], request.body["sidekick"]);
-   response.sendStatus(200);
-   response.end();
+    // Send message to mastodon server
+    console.log("Received message for " + request.body["sidekick"]);
+    sendMsgToServer(request.body["message"], request.body["sidekick"]);
+    response.sendStatus(200);
+    response.end();
 });
