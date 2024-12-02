@@ -2,13 +2,10 @@
   <div class="row justify-content-center">
     <div class="col-md-8 col-lg-6">
       <div class="card bg-gradient-primary border-0 shadow-none rounded-lg overflow-hidden">
-        <div class="card-header bg-transparent pb-5">
-          <h2 class="text-red mb-0">Welcome, Trainer!</h2>
-        </div>
         <div class="card-body px-5 py-5">
           <form id="trainerForm">
             <div class="mb-4">
-              <label for="sidekick" class="form-label text-black">Choose Your First Sidekick:</label>
+              <h5 for="sidekick" class="form-label text-black">What will be your first Sidekick?</h5>
               <select #sidekick class="form-select form-control" id="sidekick" name="start-sidekick" (change)="onChange(sidekick.value)">
                 <option value="larry">Larry - Default Text Posting</option>
                 <option value="ava">Ava - Text Posting Plus Sparkly Commands</option>
@@ -18,7 +15,7 @@
                 <option value="spark">Legion - Reply to many people at once and send posts in great amount</option>
               </select>
             </div>
-            <button (click)="clickedOnStart()" class="btn btn-outline-dark btn-lg w-100 mb-4" type="submit">Start Adventure</button>
+            <button (click)="clickedOnStart()" class="btn btn-outline-dark btn-lg w-100 mb-4" type="submit">Start Chatting</button>
           </form>
         </div>
       </div>

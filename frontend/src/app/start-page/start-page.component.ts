@@ -13,6 +13,6 @@ export class StartPageComponent {
   constructor(private router: Router) {}
 
   clickedOnStart() {
-    this.router.navigate(['chat']);
+    this.router.navigate(['choose-sidekick']);
   }
 }
