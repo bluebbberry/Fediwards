@@ -36,7 +36,7 @@ async function sendMsgToServer(message, sidekick) {
         message = message.toUpperCase();
         await send(message);
     } else if (sidekick === 'jea') {
-        const msgSplit = message.split(" ");
+        const msgSplit = splitAfterHash(message);
         if (msgSplit.length > 1) {
             const noOfMinutes = msgSplit[0];
             const restOfMessage = msgSplit[1];
@@ -54,6 +54,14 @@ async function send(message, sidekick) {
         status: message,
     });
     console.log(status.url);
+}
+
+function splitAfterHash(str) {
+    if (str[0] !== '#') return [str];
+    const msgSplit = str.split(" ");
+    const command = msgSplit[0];
+    const restOfTheText = str.substring(command.length + 1);
+    return [command, restOfTheText];
 }
 
 app.post("/status", (request, response) => {

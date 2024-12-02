@@ -2,11 +2,14 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import {SidekickService} from "../services/sidekick.service";
 import {CookieService} from "ngx-cookie-service";
+import {ReactiveFormsModule} from "@angular/forms";
 
 @Component({
   selector: 'app-choose-sidekick',
   standalone: true,
-  imports: [],
+  imports: [
+    ReactiveFormsModule
+  ],
   templateUrl: './choose-sidekick.component.html',
   styleUrl: './choose-sidekick.component.scss'
 })
