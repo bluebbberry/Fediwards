@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { MicroblogService } from "../services/microblog.service";
 import { SidekickService } from "../services/sidekick.service";
+import {CookieService} from "ngx-cookie-service";
 
 @Component({
   selector: 'app-chat',
@@ -15,10 +16,12 @@ import { SidekickService } from "../services/sidekick.service";
 export class ChatComponent {
   messages: string[] = [];
   newMessage: string = '';
+  private COOKIE_CHOSE_SIDEKICK: string = "choseSidekick";
+  private COOKIE_EXPIRE_DAYS: number = 30;
 
   selectedValue?: string;
 
-  constructor(private http: HttpClient, private microblogService: MicroblogService, private sidekickService: SidekickService) {
+  constructor(private http: HttpClient, private microblogService: MicroblogService, private sidekickService: SidekickService, private cookieService: CookieService) {
     this.selectedValue = this.sidekickService.selectedSidekick;
   }
 
@@ -33,5 +36,6 @@ export class ChatComponent {
 
   onChange(value: string) {
     this.sidekickService.selectedSidekick = value;
+    this.cookieService.set(this.COOKIE_CHOSE_SIDEKICK, value, this.COOKIE_EXPIRE_DAYS);
   }
 }
