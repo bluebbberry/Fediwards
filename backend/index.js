@@ -34,14 +34,18 @@ app.listen(PORT, () => {
 async function sendMsgToServer(message, sidekick) {
     if (sidekick === 'spark') {
         message = message.toUpperCase();
-        send(message);
+        await send(message);
     } else if (sidekick === 'jea') {
         const msgSplit = message.split(" ");
-        const noOfMinutes = msgSplit[0];
-        const restOfMessage = msgSplit[1];
-        setTimeout(() => send(restOfMessage), 1000 * noOfMinutes * 60);
+        if (msgSplit.length > 1) {
+            const noOfMinutes = msgSplit[0];
+            const restOfMessage = msgSplit[1];
+            setTimeout(() => send(restOfMessage), 1000 * noOfMinutes * 60);
+        } else {
+            await send(message);
+        }
     } else {
-        send(message);
+        await send(message);
     }
 }
 
