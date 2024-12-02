@@ -57,8 +57,9 @@ async function send(message, sidekick) {
 }
 
 function splitAfterHash(str) {
-    if (str[0] !== '#') return [str];
+    if (str[0] !== '#') { return [str]; }
     const msgSplit = str.split(" ");
+    if (msgSplit.length <= 1) { return [str]; }
     const command = msgSplit[0];
     const restOfTheText = str.substring(command.length + 1);
     return [command, restOfTheText];
