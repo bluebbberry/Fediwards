@@ -33,7 +33,7 @@ export class StartPageComponent {
 
   welcomeText() {
     if (this.choseSidekick) {
-      return "Welcome back, says " + this.sidekickService.selectedSidekick;
+      return "Welcome back, says " + this.sidekickService.getByName(this.sidekickService.selectedSidekick)?.displayText;
     } else {
       // first time
       return "Welcome, Trainer!";
