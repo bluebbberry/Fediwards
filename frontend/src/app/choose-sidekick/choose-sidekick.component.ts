@@ -10,7 +10,9 @@ import {SidekickService} from "../services/sidekick.service";
   styleUrl: './choose-sidekick.component.scss'
 })
 export class ChooseSidekickComponent {
-  constructor(private router: Router, private sidekickService: SidekickService) {}
+  constructor(private router: Router, private sidekickService: SidekickService) {
+    this.sidekickService.selectedSidekick = "larry";
+  }
 
   clickedOnStart() {
     this.router.navigate(['chat']);
