@@ -24,7 +24,11 @@ export class ChatComponent {
 
   sendToMyAccount() {
     console.log("Clicked on send");
-    this.microblogService.sendMessage(this.newMessage, this.sidekickService.selectedSidekick!);
+    if (this.newMessage) {
+      this.microblogService.sendMessage(this.newMessage, this.sidekickService.selectedSidekick!);
+    } else {
+      alert("Failed to send a message");
+    }
   }
 
   onChange(value: string) {

@@ -4,7 +4,7 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class SidekickService {
-  public selectedSidekick?: string;
+  public selectedSidekick: string = "larry";
 
   constructor() { }
 }
