@@ -77,8 +77,7 @@ app.get("/statuses", async (request, response) => {
     try {
         // Send message to mastodon server
         const posts = await getPosts("bluebbberry");
-        response.json({ requestBody: posts });
-        response.sendStatus(200).end();
+        response.status(200).json({ requestBody: posts });
     } catch (error) {
         console.error("Error fetching posts:", error);
         response.status(500).json({ error: "Failed to fetch posts" });
@@ -97,6 +96,5 @@ async function getPosts(account) {
     posts = posts.map((status) => {
         return {"content": status.content};
     });
-    console.log(posts);
     return posts;
 }

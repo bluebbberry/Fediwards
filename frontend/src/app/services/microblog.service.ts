@@ -8,6 +8,7 @@ import {Sidekick} from "../model/sidekick";
 export class MicroblogService {
 
   private url: string = "http://localhost:3000";
+  public statuses?: any[];
 
   constructor(private http: HttpClient) { }
 
@@ -27,6 +28,7 @@ export class MicroblogService {
     const headers = { 'content-type': 'application/json'};
     return this.http.get<any>(`${this.url}/statuses`, { headers: headers }).subscribe((response: any) => {
       console.log(response);
+      this.statuses = response["requestBody"];
     });
   }
 }

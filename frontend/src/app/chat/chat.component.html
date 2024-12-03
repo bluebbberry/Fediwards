@@ -21,10 +21,10 @@
 
   <!-- Messages Section -->
   <div class="mt-4">
-    <h2>Messages</h2>
+    <h2>My Messages</h2>
     <ul class="list-group">
-      <li *ngFor="let message of messages" class="list-group-item">
-        {{ message }}
+      <li *ngFor="let message of this.microblogService.statuses" class="list-group-item">
+        {{ message.content }}
       </li>
     </ul>
   </div>
