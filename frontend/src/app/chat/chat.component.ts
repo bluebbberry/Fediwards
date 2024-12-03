@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
-import { CommonModule } from '@angular/common';
+import {CommonModule, NgFor} from '@angular/common';
 import { MicroblogService } from "../services/microblog.service";
 import { SidekickService } from "../services/sidekick.service";
 import {CookieService} from "ngx-cookie-service";
@@ -9,7 +9,7 @@ import {CookieService} from "ngx-cookie-service";
 @Component({
   selector: 'app-chat',
   standalone: true,
-  imports: [ FormsModule, CommonModule ],
+  imports: [ FormsModule, CommonModule, NgFor ],
   templateUrl: './chat.component.html',
   styleUrl: './chat.component.scss'
 })
@@ -21,7 +21,7 @@ export class ChatComponent {
 
   selectedValue?: string;
 
-  constructor(private http: HttpClient, private microblogService: MicroblogService, private sidekickService: SidekickService, private cookieService: CookieService) {
+  constructor(private http: HttpClient, private microblogService: MicroblogService, protected sidekickService: SidekickService, private cookieService: CookieService) {
     this.selectedValue = this.sidekickService.selectedSidekick;
   }
 

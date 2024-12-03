@@ -7,12 +7,7 @@
             <div class="mb-4">
               <h5 for="sidekick" class="form-label text-black">What will be your first Sidekick?</h5>
               <select #sidekick class="form-select form-control" id="sidekick" name="start-sidekick" (change)="onChange(sidekick.value)">
-                <option value="larry">Larry - Default Text Posting</option>
-                <option value="spark">Spark - Angry Mode (Turns Every Post Into CAPS!!!)</option>
-                <option value="jea">Jea - Schedule posts by starting post with #numberOfMinutes</option>
-                <option value="flash">Flash - Allows to program conditional replies</option>
-                <option value="ava">Ava - Text Posting Plus Sparkly Commands</option>
-                <option value="legion">Legion - Reply to many people at once and send posts in great amount</option>
+                <option *ngFor="let sidekick of this.sidekickService.getAllSidekicks()" value="{{ sidekick.name }}">{{ sidekick.description }}</option>
               </select>
             </div>
             <button (click)="clickedOnStart()" class="btn btn-outline-dark btn-lg w-100 mb-4" type="submit">Start Chatting</button>
