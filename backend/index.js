@@ -1,4 +1,4 @@
-import { createRestAPIClient } from "masto";
+import {createRestAPIClient} from "masto";
 import express from 'express';
 import cors from "cors";
 
@@ -72,3 +72,31 @@ app.post("/status", (request, response) => {
     response.sendStatus(200);
     response.end();
 });
+
+app.get("/statuses", async (request, response) => {
+    try {
+        // Send message to mastodon server
+        const posts = await getPosts("bluebbberry");
+        response.json({ requestBody: posts });
+        response.sendStatus(200).end();
+    } catch (error) {
+        console.error("Error fetching posts:", error);
+        response.status(500).json({ error: "Failed to fetch posts" });
+    }
+});
+
+// Function to fetch posts
+async function getPosts(account) {
+    const acct = await masto.v1.accounts.lookup({
+        acct: '@bluebbberry@mastodon.social',
+    });
+    console.log(`ID: ${acct.id}`);
+    const id = acct.id;
+
+    let posts = await masto.v1.accounts.$select(id).statuses.list();
+    posts = posts.map((status) => {
+        return {"content": status.content};
+    });
+    console.log(posts);
+    return posts;
+}

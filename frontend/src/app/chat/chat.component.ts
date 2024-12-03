@@ -23,6 +23,8 @@ export class ChatComponent {
 
   constructor(private http: HttpClient, private microblogService: MicroblogService, protected sidekickService: SidekickService, private cookieService: CookieService) {
     this.selectedValue = this.sidekickService.selectedSidekick;
+    console.log("Received statuses:");
+    this.microblogService.getStatuses();
   }
 
   sendToMyAccount() {

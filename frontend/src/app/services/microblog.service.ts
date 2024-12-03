@@ -22,4 +22,11 @@ export class MicroblogService {
           console.error(error);
       });
   }
+
+  getStatuses() {
+    const headers = { 'content-type': 'application/json'};
+    return this.http.get<any>(`${this.url}/statuses`, { headers: headers }).subscribe((response: any) => {
+      console.log(response);
+    });
+  }
 }
