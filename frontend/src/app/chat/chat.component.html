@@ -6,7 +6,7 @@
   <!-- Selected sidekick -->
   <div class="mb-4">
     <label for="sidekick" class="form-label text-black">Selected Sidekick:</label>
-    <select #sidekicks [(ngModel)]="selectedValue" class="form-select form-control" id="sidekick" name="start-sidekick" (change)="onChange(sidekicks.value)">
+    <select #sidekicks [(ngModel)]="selectedSidekick.name" class="form-select form-control" id="sidekick" name="start-sidekick" (change)="onChange(sidekicks.value)">
       <option *ngFor="let sidekick of this.sidekickService.getAllSidekicks()" value="{{ sidekick.name }}">{{ sidekick.description }}</option>
     </select>
   </div>

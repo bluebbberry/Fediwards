@@ -6,17 +6,16 @@ import {Sidekick} from "../model/sidekick";
   providedIn: 'root'
 })
 export class MicroblogService {
-
   private url: string = "http://localhost:3000";
   public statuses?: any[];
 
   constructor(private http: HttpClient) { }
 
-  sendMessage(message: string, sidekick: string): void {
+  sendMessage(message: string, sidekick: Sidekick): void {
     const headers = { 'content-type': 'application/json'};
 
     this.http
-      .post<any>(`${this.url}/status`, {message: message, sidekick: sidekick}, { headers: headers})
+      .post<any>(`${this.url}/status`, {message: message, sidekick: sidekick.name}, { headers: headers})
       .subscribe(
         (response: any) => console.log("Success"),
         (error) => {
