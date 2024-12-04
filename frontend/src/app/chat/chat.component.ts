@@ -36,6 +36,7 @@ export class ChatComponent {
       this.microblogService.sendMessage(this.newMessage, this.sidekickService.getSelectedSidekick(), () => {
         this.microblogService.fetchStatuses();
       });
+      this.newMessage = '';
     } else {
       alert("Failed to send a message");
     }
