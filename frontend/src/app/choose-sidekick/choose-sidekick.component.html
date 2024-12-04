@@ -1,19 +1,39 @@
 <div class="container mt-5">
+  <div class="text-center mb-4">
+    <h1>Choose Your Sidekick</h1>
+    <p>Select one of our cool bots to get started!</p>
+  </div>
   <div class="row justify-content-center">
-    <div class="col-md-8 col-lg-6">
-      <div class="card bg-gradient-primary border-0 shadow-none rounded-lg overflow-hidden">
-        <div class="card-body px-5 py-5">
-          <form id="trainerForm">
-            <div class="mb-4">
-              <h5 for="sidekick" class="form-label text-black">What will be your first Sidekick?</h5>
-              <select #sidekick class="form-select form-control" id="sidekick" name="start-sidekick" (change)="onChange(sidekick.value)">
-                <option *ngFor="let sidekick of this.sidekickService.getAllSidekicks()" value="{{ sidekick.name }}">{{ sidekick.description }}</option>
-              </select>
-            </div>
-            <button (click)="clickedOnStart()" class="btn btn-outline-dark btn-lg w-100 mb-4" type="submit">Start Chatting</button>
-          </form>
+    <div class="col-md-10">
+      <div class="row g-4">
+        <!-- Loop through all sidekicks -->
+        <div
+          class="col-sm-6 col-md-4"
+          *ngFor="let sidekick of this.sidekickService.getAllSidekicks()"
+        >
+          <div
+            class="sidekick-card text-center"
+            (click)="onSidekickSelect(sidekick)"
+          >
+            <img
+              [src]="sidekick.imagePath"
+              [alt]="sidekick.name"
+              class="sidekick-image"
+            />
+            <h5 class="mt-3">{{ sidekick.displayText }}</h5>
+            <p class="text-muted">{{ sidekick.description }}</p>
+          </div>
         </div>
       </div>
     </div>
+  </div>
+  <div class="text-center mt-4">
+    <button
+      (click)="clickedOnStart()"
+      class="btn btn-primary btn-lg"
+      [disabled]="!sidekickService.getSelectedSidekick()"
+    >
+      Start Chatting with {{ sidekickService.getSelectedSidekick().displayText || "..." }}
+    </button>
   </div>
 </div>

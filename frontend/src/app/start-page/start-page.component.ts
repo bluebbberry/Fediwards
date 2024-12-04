@@ -2,7 +2,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import {SidekickService} from "../services/sidekick.service";
-import {CookieService} from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-start-page',
@@ -12,19 +11,10 @@ import {CookieService} from 'ngx-cookie-service';
   imports: []
 })
 export class StartPageComponent {
-  private COOKIE_CHOSE_SIDEKICK: string = "choseSidekick";
-  private choseSidekick: boolean = false;
-
-  constructor(private router: Router, private cookieService: CookieService, private sidekickService: SidekickService) {
-    const sideKickVal: string = this.cookieService.get(this.COOKIE_CHOSE_SIDEKICK);
-    this.choseSidekick = sideKickVal !== '';
-    if (this.choseSidekick) {
-      this.sidekickService.selectedSidekick = sideKickVal;
-    }
-  }
+  constructor(private router: Router, private sidekickService: SidekickService) {}
 
   clickedOnStart() {
-    if (this.choseSidekick) {
+    if (this.sidekickService.hasUserChosenSidekick) {
       this.router.navigate(['chat']);
     } else {
       this.router.navigate(['choose-sidekick']);
@@ -32,8 +22,8 @@ export class StartPageComponent {
   }
 
   welcomeText() {
-    if (this.choseSidekick) {
-      return "Welcome back, says " + this.sidekickService.getByName(this.sidekickService.selectedSidekick)?.displayText;
+    if (this.sidekickService.hasUserChosenSidekick) {
+      return "Welcome back, says " + this.sidekickService.getSelectedSidekick().displayText;
     } else {
       // first time
       return "Welcome, Trainer!";
@@ -41,7 +31,7 @@ export class StartPageComponent {
   }
 
   confirmBtnText() {
-    if (this.choseSidekick) {
+    if (this.sidekickService.hasUserChosenSidekick) {
       return "Start";
     } else {
       // first time
