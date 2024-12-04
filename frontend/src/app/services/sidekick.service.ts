@@ -10,9 +10,9 @@ export class SidekickService {
   private COOKIE_EXPIRE_DAYS: number = 30;
 
   private allSidekicks: Sidekick[] = [
-    new Sidekick("larry", "Larry", "Larry - Default Text Posting"),
-    new Sidekick("spark", "Spark", "Spark - Angry Mode (Turns Every Post Into CAPS!!!)"),
-    new Sidekick("jea", "Jea", "Jea - Schedule posts by starting post with #numberOfMinutes"),
+    new Sidekick("larry", "Larry", "Larry - Default Text Posting", "larry.png"),
+    new Sidekick("spark", "Spark", "Spark - Angry Mode (Turns Every Post Into CAPS!!!)", "spark.png"),
+    new Sidekick("jea", "Jea", "Jea - Schedule posts by starting post with #numberOfMinutes", "jea2.png"),
     //new Sidekick("flash", "Flash", "Flash - Allows to program conditional replies"),
     // new Sidekick("ava", "Ava", "Ava - Text Posting Plus Sparkly Commands"),
     // new Sidekick("legion", "Legion", "Legion - Reply to many people at once and send posts in great amount")

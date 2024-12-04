@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import {SidekickService} from "../services/sidekick.service";
 import {ReactiveFormsModule} from "@angular/forms";
 import {NgForOf} from "@angular/common";
+import {Sidekick} from "../model/sidekick";
 
 @Component({
   selector: 'app-choose-sidekick',
@@ -23,7 +24,7 @@ export class ChooseSidekickComponent {
     this.router.navigate(['chat']);
   }
 
-  onChange(value: string) {
-    this.sidekickService.setSelectedSidekick(this.sidekickService.getByName(value));
+  onSidekickSelect(sidekick: Sidekick) {
+    this.sidekickService.setSelectedSidekick(sidekick);
   }
 }
