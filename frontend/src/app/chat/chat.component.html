@@ -7,7 +7,7 @@
     <div class="feed">
       <ul class="list-group">
         <li *ngFor="let message of this.microblogService.statuses" class="list-group-item message-item">
-          {{ message.content }}
+          {{ message.createdAt }} : {{ message.content }}
         </li>
       </ul>
     </div>

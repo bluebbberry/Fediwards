@@ -102,7 +102,10 @@ async function getPosts(accountName) {
 
     let posts = await masto.v1.accounts.$select(id).statuses.list();
     posts = posts.map((status) => {
-        return {"content": status.content};
+        return {
+            "content": status.content.substring(3, status.content.length - 4),
+            "createdAt": status.createdAt
+        };
     });
     return posts;
 }
