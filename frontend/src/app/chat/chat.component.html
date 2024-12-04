@@ -23,9 +23,13 @@
   <div class="mt-4">
     <h2>My Messages</h2>
     <ul class="list-group">
-      <li *ngFor="let message of this.microblogService.statuses" class="list-group-item">
-        {{ message.content }}
-      </li>
+      @if (this.microblogService.statuses) {
+        <li *ngFor="let message of this.microblogService.statuses" class="list-group-item">
+          {{ message.content }}
+        </li>
+      } @else {
+        <label>Loading ...</label>
+      }
     </ul>
   </div>
 </div>

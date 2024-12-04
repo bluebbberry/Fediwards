@@ -20,13 +20,15 @@ export class ChatComponent {
 
   constructor(private http: HttpClient, protected microblogService: MicroblogService, protected sidekickService: SidekickService) {
     this.selectedSidekick = this.sidekickService.getSelectedSidekick();
-    this.microblogService.getStatuses();
+    this.microblogService.fetchStatuses();
   }
 
   sendToMyAccount() {
     console.log("Clicked on send");
     if (this.newMessage) {
-      this.microblogService.sendMessage(this.newMessage, this.sidekickService.getSelectedSidekick());
+      this.microblogService.sendMessage(this.newMessage, this.sidekickService.getSelectedSidekick(), () => {
+        this.microblogService.fetchStatuses();
+      });
     } else {
       alert("Failed to send a message");
     }

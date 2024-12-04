@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import {HttpClient, HttpHeaders} from "@angular/common/http";
-import {Sidekick} from "../model/sidekick";
+import { HttpClient } from "@angular/common/http";
+import { Sidekick } from "../model/sidekick";
 
 @Injectable({
   providedIn: 'root'
@@ -11,19 +11,24 @@ export class MicroblogService {
 
   constructor(private http: HttpClient) { }
 
-  sendMessage(message: string, sidekick: Sidekick): void {
+  sendMessage(message: string, sidekick: Sidekick, onSuccess: any): void {
     const headers = { 'content-type': 'application/json'};
 
     this.http
       .post<any>(`${this.url}/status`, {message: message, sidekick: sidekick.name}, { headers: headers})
       .subscribe(
-        (response: any) => console.log("Success"),
+        (response: any) => {
+          console.log("Success");
+          onSuccess();
+        },
         (error) => {
           console.error(error);
+          onSuccess();
       });
   }
 
-  getStatuses() {
+  fetchStatuses() {
+    this.statuses = undefined;
     const headers = { 'content-type': 'application/json'};
     return this.http.get<any>(`${this.url}/statuses`, { headers: headers }).subscribe((response: any) => {
       console.log(response);
