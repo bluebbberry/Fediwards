@@ -1,36 +1,30 @@
-<div class="container my-5">
-  <div class="text-center mb-4">
-    <h1>Post Messages</h1>
+<div class="container">
+  <!-- Messages Feed -->
+  <div class="feed-container">
+    <div class="feed-header">
+      <h1>My Posts</h1>
+    </div>
+    <div class="feed">
+      <ul class="list-group">
+        <li *ngFor="let message of this.microblogService.statuses" class="list-group-item message-item">
+          {{ message.content }}
+        </li>
+      </ul>
+    </div>
   </div>
 
-  <!-- Selected sidekick -->
-  <div class="mb-4">
-    <label for="sidekick" class="form-label text-black">Selected Sidekick:</label>
-    <select #sidekicks [(ngModel)]="selectedValue" class="form-select form-control" id="sidekick" name="start-sidekick" (change)="onChange(sidekicks.value)">
-      <option value="larry">Larry - Default Text Posting</option>
-      <option value="spark">Spark - Angry Mode (Turns Every Post Into CAPS!!!)</option>
-      <option value="jea">Jea - Schedule posts by starting post with #numberOfMinutes</option>
-      <option value="flash">Flash - Allows to program conditional replies</option>
-      <option value="ava">Ava - Text Posting Plus Sparkly Commands</option>
-      <option value="legion">Legion - Reply to many people at once and send posts in great amount</option>
-    </select>
-  </div>
-
-  <!-- Input Section -->
-  <div class="mb-3">
-    <textarea [(ngModel)]="newMessage" class="form-control" rows="3" placeholder="What's happening?"></textarea>
-  </div>
-  <div class="text-end">
-    <button (click)="sendToMyAccount()" class="btn btn-primary">Send</button>
-  </div>
-
-  <!-- Messages Section -->
-  <div class="mt-4">
-    <h2>Messages</h2>
-    <ul class="list-group">
-      <li *ngFor="let message of messages" class="list-group-item">
-        {{ message }}
-      </li>
-    </ul>
+  <!-- Fixed Post Box -->
+  <div class="post-box fixed-bottom">
+    <div class="mb-3">
+      <textarea [(ngModel)]="newMessage" class="form-control" rows="2" placeholder="What's happening?"></textarea>
+    </div>
+    <div class="d-flex justify-content-between align-items-center">
+      <select #sidekicks [(ngModel)]="selectedStartValue" class="form-select sidekick-select" (change)="onChange(sidekicks.value)">
+        <option *ngFor="let sidekick of this.sidekickService.getAllSidekicks()" value="{{ sidekick.name }}">
+          {{ sidekick.description }}
+        </option>
+      </select>
+      <button (click)="sendToMyAccount()" class="btn btn-primary ms-3">Send</button>
+    </div>
   </div>
 </div>
