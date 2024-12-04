@@ -1,13 +1,46 @@
-.container {
-  height: 100vh;
+/* Fullscreen Layout */
+.landing-page {
+  font-family: 'Helvetica Neue', Arial, sans-serif;
+  color: #1da1f2; /* Twitter blue color */
 }
 
-.row {
-  min-height: 100%;
+/* Left Section Styling */
+.bg-light {
+  background-color: #e8f5fd;
 }
 
-.col-md-8 {
-  background-color: #f8f9fa;
-  padding: 20px;
-  border-radius: 10px;
+.clickable-image {
+  max-height: 70%;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.clickable-image:hover {
+  transform: scale(1.05);
+}
+
+/* Right Section Styling */
+.welcome-text {
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: #14171a; /* Twitter text color */
+}
+
+.btn-primary {
+  background-color: #1da1f2;
+  border-color: #1da1f2;
+  color: #ffffff;
+  border-radius: 9999px;
+  padding: 10px 40px;
+  font-size: 1.25rem;
+  font-weight: bold;
+}
+
+.btn-primary:hover {
+  background-color: #0d8cd4;
+  border-color: #0d8cd4;
+}
+
+.bg-white {
+  background-color: #ffffff;
 }
