@@ -3,13 +3,14 @@ import express from 'express';
 import cors from "cors";
 
 const args = process.argv.slice(2);
-if (args.length < 2) {
-  console.error('Expected at least two arguments!');
+if (args.length < 3) {
+  console.error('Expected at least three arguments!');
   process.exit(1);
 }
 
 const URL = args[0];
 const TOKEN = args[1];
+const ACCOUNT_NAME = args[2];
 
 const masto = createRestAPIClient({
   url: URL,
@@ -83,7 +84,7 @@ app.post("/status", (request, response) => {
 app.get("/statuses", async (request, response) => {
     try {
         // Send message to mastodon server
-        const posts = await getPosts("bluebbberry");
+        const posts = await getPosts(ACCOUNT_NAME);
         response.status(200).json({ requestBody: posts });
     } catch (error) {
         console.error("Error fetching posts:", error);
@@ -92,9 +93,9 @@ app.get("/statuses", async (request, response) => {
 });
 
 // Function to fetch posts
-async function getPosts(account) {
+async function getPosts(accountName) {
     const acct = await masto.v1.accounts.lookup({
-        acct: '@bluebbberry@mastodon.social',
+        acct: accountName,
     });
     console.log(`ID: ${acct.id}`);
     const id = acct.id;
