@@ -15,7 +15,9 @@ import {NgForOf} from "@angular/common";
   styleUrl: './choose-sidekick.component.scss'
 })
 export class ChooseSidekickComponent {
-  constructor(private router: Router, protected sidekickService: SidekickService) {}
+  constructor(private router: Router, protected sidekickService: SidekickService) {
+    sidekickService.setSelectedSidekick(sidekickService.getAllSidekicks()[0]);
+  }
 
   clickedOnStart() {
     this.router.navigate(['chat']);

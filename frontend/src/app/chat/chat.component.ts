@@ -5,6 +5,7 @@ import {CommonModule, NgFor} from '@angular/common';
 import { MicroblogService } from "../services/microblog.service";
 import { SidekickService } from "../services/sidekick.service";
 import {Sidekick} from "../model/sidekick";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-chat',
@@ -18,7 +19,11 @@ export class ChatComponent {
   newMessage: string = '';
   selectedSidekick!: Sidekick;
 
-  constructor(private http: HttpClient, protected microblogService: MicroblogService, protected sidekickService: SidekickService) {
+  constructor(private http: HttpClient, protected microblogService: MicroblogService, protected sidekickService: SidekickService, private router: Router) {
+    if (!sidekickService.hasUserChosenSidekick) {
+      router.navigate(['/']);
+    }
+
     this.selectedSidekick = this.sidekickService.getSelectedSidekick();
     this.microblogService.fetchStatuses();
   }

@@ -21,6 +21,7 @@ export class SidekickService {
   public hasUserChosenSidekick: boolean;
 
   constructor(private cookieService: CookieService) {
+    debugger
     const sideKickCookieVal: string = this.cookieService.get(this.COOKIE_CHOSE_SIDEKICK);
     this.hasUserChosenSidekick = sideKickCookieVal !== '';
     if (this.hasUserChosenSidekick) {
@@ -28,6 +29,7 @@ export class SidekickService {
     } else {
       // default sidekick
       this.selectedSidekick = this.allSidekicks[0];
+      this.cookieService.set(this.COOKIE_CHOSE_SIDEKICK, this.selectedSidekick.name, this.COOKIE_EXPIRE_DAYS);
     }
   }
 
@@ -45,6 +47,7 @@ export class SidekickService {
 
   public setSelectedSidekick(sidekick: Sidekick) {
     this.selectedSidekick = sidekick;
+    this.hasUserChosenSidekick = true;
     this.cookieService.set(this.COOKIE_CHOSE_SIDEKICK, sidekick.name, this.COOKIE_EXPIRE_DAYS);
   }
 
