@@ -18,6 +18,7 @@ export class ChatComponent {
   messages: string[] = [];
   newMessage: string = '';
   selectedSidekick!: Sidekick;
+  selectedStartValue: string;
 
   constructor(private http: HttpClient, protected microblogService: MicroblogService, protected sidekickService: SidekickService, private router: Router) {
     if (!sidekickService.hasUserChosenSidekick) {
@@ -25,6 +26,7 @@ export class ChatComponent {
     }
 
     this.selectedSidekick = this.sidekickService.getSelectedSidekick();
+    this.selectedStartValue = this.selectedSidekick.name;
     this.microblogService.fetchStatuses();
   }
 
