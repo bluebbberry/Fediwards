@@ -35,4 +35,12 @@ export class MicroblogService {
       this.statuses = response["requestBody"];
     });
   }
+
+  getDescendantsOfPost(messageId: string) {
+    const headers = { 'content-type': 'application/json'};
+    return this.http.get<any>(`${this.url}/statuses/${messageId}/children`, { headers: headers }).subscribe((response: any) => {
+      console.log(response);
+      this.statuses = response["requestBody"];
+    });
+  }
 }

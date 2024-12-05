@@ -101,11 +101,34 @@ async function getPosts(accountName) {
     const id = acct.id;
 
     let posts = await masto.v1.accounts.$select(id).statuses.list();
+    const firstPost = posts[0];
+    console.log(firstPost);
     posts = posts.map((status) => {
         return {
             "content": status.content.substring(3, status.content.length - 4),
             "createdAt": status.createdAt
         };
     });
+
     return posts;
+}
+
+app.get("/statuses/:id/children", async (request, response) => {
+    try {
+        // Send message to mastodon server
+        const context = await getParentAndChildren(request.param.id);
+        response.status(200).json({ requestBody: context });
+    } catch (error) {
+        console.error("Error fetching posts:", error);
+        response.status(500).json({ error: "Failed to fetch posts" });
+    }
+});
+
+// Function to fetch parent and childs of a post
+async function getParentAndChildren(statusId) {
+    console.log("StatusId:");
+    console.log(statusId);
+    let context = await masto.v1.statuses.$select(statusId).context.fetch();
+    console.log("Context:");
+    console.log(context);
 }
