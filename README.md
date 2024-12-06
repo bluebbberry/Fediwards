@@ -41,13 +41,13 @@ npm install
 Then, run the following command under the `backend`-folder:
 
 ````bash
-node .\index.js "URL" "MY_TOKEN"
+node .\app.js "URL" "MY_TOKEN"
 ````
 
 For example:
 
 ````bash
-node .\index.js "https://mastodon.social" "MY_TOKEN"
+node .\app.js "https://mastodon.social" "MY_TOKEN"
 ````
 
 ### Opening the app

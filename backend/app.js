@@ -105,13 +105,17 @@ async function getPosts(accountName) {
     console.log(firstPost);
     posts = posts.map((status) => {
         return {
-            "content": status.content.substring(3, status.content.length - 4),
+            "content": cropStatusContent(status.content),
             "id": status.id,
             "createdAt": status.createdAt
         };
     });
 
     return posts;
+}
+
+function cropStatusContent(statusContent) {
+    return statusContent.substring(3, status.content.length - 4);
 }
 
 app.get("/statuses/:id/children", async (request, response) => {
@@ -122,7 +126,7 @@ app.get("/statuses/:id/children", async (request, response) => {
             return {
                 "id": ancestor.id,
                 "createdAt": ancestor.createdAt,
-                "content": ancestor.content
+                "content": cropStatusContent(ancestor.content)
             };
         });
         response.status(200).json({ requestBody: descendants });
