@@ -1,20 +1,11 @@
 import {createRestAPIClient} from "masto";
-import 'dotenv/config'
 import express from 'express';
 import cors from "cors";
-
-if (!process.env.URL || !process.env.MASTODON_API_TOKEN || !process.env.ACCOUNT_NAME) {
-  console.error('Missing program arguments (pass through .env file: URL, MASTODON_API_TOKEN, ACCOUNT_NAME)!');
-  process.exit(1);
-}
-
-const URL = process.env.URL;
-const TOKEN = process.env.MASTODON_API_TOKEN;
-const ACCOUNT_NAME = process.env.ACCOUNT_NAME;
+import * as Config from "./config.js";
 
 const masto = createRestAPIClient({
-  url: URL,
-  accessToken: TOKEN,
+  url: Config.URL,
+  accessToken: Config.MASTODON_API_TOKEN,
 });
 
 // ============== REST API ===================
@@ -84,7 +75,7 @@ app.post("/status", (request, response) => {
 app.get("/statuses", async (request, response) => {
     try {
         // Send message to mastodon server
-        const posts = await getPosts(ACCOUNT_NAME);
+        const posts = await getPosts(Config.ACCOUNT_NAME);
         response.status(200).json({ requestBody: posts });
     } catch (error) {
         console.error("Error fetching posts:", error);
@@ -115,7 +106,7 @@ async function getPosts(accountName) {
 }
 
 function cropStatusContent(statusContent) {
-    return statusContent.substring(3, status.content.length - 4);
+    return statusContent.substring(3, statusContent.length - 4);
 }
 
 app.get("/statuses/:id/children", async (request, response) => {
