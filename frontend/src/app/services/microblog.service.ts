@@ -15,7 +15,7 @@ export class MicroblogService {
     const headers = { 'content-type': 'application/json'};
 
     this.http
-      .post<any>(`${this.url}/status`, {message: message, sidekick: sidekick.name}, { headers: headers})
+      .post<any>(`${this.url}/statuses`, {message: message, sidekick: sidekick.name}, { headers: headers})
       .subscribe(
         (response: any) => {
           console.log("Success");

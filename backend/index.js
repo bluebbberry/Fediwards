@@ -12,7 +12,7 @@ app.use(cors({
     allowedHeaders: ['Content-Type', 'Authorization']
 }));
 
-app.use('/', statusesController);
+app.use('/statuses', statusesController);
 
 const PORT = 3000;
 

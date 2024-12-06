@@ -45,7 +45,7 @@ function splitAfterHash(str) {
     return [command, restOfTheText];
 }
 
-router.post("/status", (request, response) => {
+router.post("/", (request, response) => {
     // Send message to mastodon server
     console.log("Received message for " + request.body["sidekick"]);
     sendMsgToServer(request.body["message"], request.body["sidekick"]);
@@ -53,7 +53,7 @@ router.post("/status", (request, response) => {
     response.end();
 });
 
-router.get("/statuses", async (request, response) => {
+router.get("/", async (request, response) => {
     try {
         // Send message to mastodon server
         const posts = await getPosts(Config.ACCOUNT_NAME);
@@ -90,7 +90,7 @@ function cropStatusContent(statusContent) {
     return statusContent.substring(3, statusContent.length - 4);
 }
 
-router.get("/statuses/:id/children", async (request, response) => {
+router.get("/:id/children", async (request, response) => {
     try {
         // Send message to mastodon server
         const context = await getParentAndChildren(request.params.id);
