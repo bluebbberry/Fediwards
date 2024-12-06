@@ -1,16 +1,16 @@
 import {createRestAPIClient} from "masto";
+import 'dotenv/config'
 import express from 'express';
 import cors from "cors";
 
-const args = process.argv.slice(2);
-if (args.length < 3) {
-  console.error('Expected at least three arguments!');
+if (!process.env.URL || !process.env.MASTODON_API_TOKEN || !process.env.ACCOUNT_NAME) {
+  console.error('Missing program arguments (pass through .env file: URL, MASTODON_API_TOKEN, ACCOUNT_NAME)!');
   process.exit(1);
 }
 
-const URL = args[0];
-const TOKEN = args[1];
-const ACCOUNT_NAME = args[2];
+const URL = process.env.URL;
+const TOKEN = process.env.MASTODON_API_TOKEN;
+const ACCOUNT_NAME = process.env.ACCOUNT_NAME;
 
 const masto = createRestAPIClient({
   url: URL,
