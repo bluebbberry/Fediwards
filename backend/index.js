@@ -1,7 +1,7 @@
 import {createRestAPIClient} from "masto";
 import express from 'express';
 import cors from "cors";
-import * as Config from "./config.js";
+import * as Config from "./src/config.js";
 
 const masto = createRestAPIClient({
   url: Config.URL,
