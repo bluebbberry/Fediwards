@@ -1,4 +1,3 @@
-import {} from "masto";
 import express from 'express';
 import cors from "cors";
 import statusesController from "./src/controllers/statuses.controller.js";
