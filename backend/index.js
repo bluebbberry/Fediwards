@@ -106,6 +106,7 @@ async function getPosts(accountName) {
     posts = posts.map((status) => {
         return {
             "content": status.content.substring(3, status.content.length - 4),
+            "id": status.id,
             "createdAt": status.createdAt
         };
     });
@@ -116,8 +117,15 @@ async function getPosts(accountName) {
 app.get("/statuses/:id/children", async (request, response) => {
     try {
         // Send message to mastodon server
-        const context = await getParentAndChildren(request.param.id);
-        response.status(200).json({ requestBody: context });
+        const context = await getParentAndChildren(request.params.id);
+        const descendants = context.descendants.map(ancestor => {
+            return {
+                "id": ancestor.id,
+                "createdAt": ancestor.createdAt,
+                "content": ancestor.content
+            };
+        });
+        response.status(200).json({ requestBody: descendants });
     } catch (error) {
         console.error("Error fetching posts:", error);
         response.status(500).json({ error: "Failed to fetch posts" });
@@ -131,4 +139,5 @@ async function getParentAndChildren(statusId) {
     let context = await masto.v1.statuses.$select(statusId).context.fetch();
     console.log("Context:");
     console.log(context);
+    return context;
 }

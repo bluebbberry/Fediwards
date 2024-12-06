@@ -46,7 +46,7 @@ export class ChatComponent {
     this.sidekickService.setSelectedSidekick(this.sidekickService.getByName(value));
   }
 
-  clickedOnExpandPost(message: string) {
-    this.microblogService.getDescendantsOfPost("test");
+  clickedOnExpandPost(statusId: string) {
+    this.microblogService.getDescendantsOfPost(statusId);
   }
 }
