@@ -32,23 +32,27 @@ npm start
 
 ### Backend
 
-First, you again need to install the npm-dependencies via:
+First, you need to install the npm-dependencies via:
 
 ````bash
 npm install
 ````
 
+Then, you need to create a `.env`-file in the `backend`-folder and add your credentials like this:
+
+````bash
+URL="https://<my-instance>"
+ACCOUNT_NAME="@<my-username>@<my-instance>"
+MASTODON_API_TOKEN="<my-api-token>"
+````
+
 Then, run the following command under the `backend`-folder:
 
 ````bash
-node .\app.js "URL" "MY_TOKEN"
+node .\index.js
 ````
 
-For example:
-
-````bash
-node .\app.js "https://mastodon.social" "MY_TOKEN"
-````
+The backend-service should be running.
 
 ### Opening the app
 
