@@ -8,19 +8,25 @@
       <p class="mb-1 fw-bold">{{ this.userService.userInfo?.username }}</p>
     </div>
     <div class="nav-buttons d-flex flex-column">
-      <button class="btn btn-outline-primary mb-2" (click)="navigateTo('home')">Home</button>
-      <button class="btn btn-outline-secondary mb-2" (click)="navigateTo('local')">Local Feed</button>
-      <button class="btn btn-outline-secondary mb-2" (click)="navigateTo('global')">Global Feed</button>
+      <button class="btn btn-outline-primary mb-2" (click)="navigateTo(Feed.HOME)">Home</button>
+      <button class="btn btn-outline-secondary mb-2" (click)="navigateTo(Feed.LOCAL)">Local Feed</button>
+      <button class="btn btn-outline-secondary mb-2" (click)="navigateTo(Feed.GLOBAL)">Global Feed</button>
     </div>
     <br>
     <div class="nav-buttons d-flex flex-column">
-      <button class="btn btn-outline-secondary mb-2" (click)="navigateTo('sidekick-settings')">Account Settings</button>
-      <button class="btn btn-outline-secondary mb-2" (click)="navigateTo('sidekick-settings')">Sidekick Settings</button>
+      <button class="btn btn-outline-secondary mb-2">Account Settings</button>
+      <button class="btn btn-outline-secondary mb-2">Sidekick Settings</button>
     </div>
   </div>
 
   <div class="feed-container flex-grow-1 d-flex flex-column">
-    <app-home-feed class="overflow-auto"></app-home-feed>
+    @if (selectedFeed == Feed.HOME) {
+      <app-home-feed class="overflow-auto"></app-home-feed>
+    } @else if (selectedFeed == Feed.LOCAL) {
+      <app-local-feed class="overflow-auto"></app-local-feed>
+    } @else if (selectedFeed == Feed.GLOBAL) {
+      <app-global-feed class="overflow-auto"></app-global-feed>
+    }
   </div>
 
   <!-- Fixed Post Box -->

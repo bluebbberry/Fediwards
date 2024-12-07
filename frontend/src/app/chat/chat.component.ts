@@ -9,11 +9,17 @@ import {Router} from "@angular/router";
 import {StatusComponent} from "./status/status.component";
 import {UserService} from "../services/user.service";
 import {HomeFeedComponent} from "./home-feed/home-feed.component";
+import {LocalFeedComponent} from "./local-feed/local-feed.component";
+import {GlobalFeedComponent} from "./global-feed/global-feed.component";
+
+enum Feed {
+  HOME, LOCAL, GLOBAL
+}
 
 @Component({
   selector: 'app-chat',
   standalone: true,
-  imports: [FormsModule, CommonModule, NgFor, StatusComponent, HomeFeedComponent],
+  imports: [FormsModule, CommonModule, NgFor, StatusComponent, HomeFeedComponent, LocalFeedComponent, GlobalFeedComponent],
   templateUrl: './chat.component.html',
   styleUrl: './chat.component.scss'
 })
@@ -23,6 +29,7 @@ export class ChatComponent {
   selectedSidekick!: Sidekick;
   selectedStartValue: string;
   protected changed: boolean = false;
+  public selectedFeed: Feed = Feed.HOME;
 
   constructor(private http: HttpClient, protected microblogService: MicroblogService, protected sidekickService: SidekickService, private router: Router, private changeDetectionRef: ChangeDetectorRef, protected userService: UserService) {
     if (!sidekickService.hasUserChosenSidekick) {
@@ -51,11 +58,23 @@ export class ChatComponent {
     this.sidekickService.setSelectedSidekick(this.sidekickService.getByName(value));
   }
 
-  navigateTo(home: string) {
-
+  navigateTo(feed: Feed) {
+    switch (feed) {
+      case Feed.HOME:
+        this.selectedFeed = Feed.HOME;
+        break;
+      case Feed.LOCAL:
+        this.selectedFeed = Feed.LOCAL;
+        break;
+      case Feed.GLOBAL:
+        this.selectedFeed = Feed.GLOBAL;
+        break;
+    }
   }
 
   clickedOnIcon() {
     this.router.navigate(['/']);
   }
+
+  protected readonly Feed = Feed;
 }
