@@ -21,7 +21,7 @@ export async function sendMsgToServerOverSidekick(message, sidekick) {
         await send(message + " - " + shakespearQuotes);
     } else if (sidekick === 'legion') {
         const msgSplit = splitAfterHash(message);
-        if (msgSplit.length > 1 && isNumeric(msgSplit[0])) {
+        if (msgSplit.length > 1 && isNumeric(msgSplit[0].substring(1))) {
             const noOfRepeats = Number(msgSplit[0].substring(1));
             const restOfMessage = msgSplit[1];
             for (let i = 0; i < noOfRepeats; i++) {
