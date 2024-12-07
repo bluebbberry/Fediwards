@@ -7,6 +7,7 @@ import { SidekickService } from "../services/sidekick.service";
 import {Sidekick} from "../model/sidekick";
 import {Router} from "@angular/router";
 import {StatusComponent} from "./status/status.component";
+import {UserService} from "../services/user.service";
 
 @Component({
   selector: 'app-chat',
@@ -22,7 +23,7 @@ export class ChatComponent {
   selectedStartValue: string;
   protected changed: boolean = false;
 
-  constructor(private http: HttpClient, protected microblogService: MicroblogService, protected sidekickService: SidekickService, private router: Router, private changeDetectionRef: ChangeDetectorRef) {
+  constructor(private http: HttpClient, protected microblogService: MicroblogService, protected sidekickService: SidekickService, private router: Router, private changeDetectionRef: ChangeDetectorRef, protected userService: UserService) {
     if (!sidekickService.hasUserChosenSidekick) {
       router.navigate(['/']);
     }
@@ -30,6 +31,7 @@ export class ChatComponent {
     this.selectedSidekick = this.sidekickService.getSelectedSidekick();
     this.selectedStartValue = this.selectedSidekick.name;
     this.microblogService.fetchStatuses();
+    this.userService.fetchUserInfo();
   }
 
   sendToMyAccount() {

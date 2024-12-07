@@ -21,7 +21,6 @@ export class SidekickService {
   public hasUserChosenSidekick: boolean;
 
   constructor(private cookieService: CookieService) {
-    debugger
     const sideKickCookieVal: string = this.cookieService.get(this.COOKIE_CHOSE_SIDEKICK);
     this.hasUserChosenSidekick = sideKickCookieVal !== '';
     if (this.hasUserChosenSidekick) {

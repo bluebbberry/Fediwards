@@ -5,7 +5,7 @@
       <img src="sidekick_icon2.png" (click)="clickedOnIcon()" alt="sidekick-icon" class="img-fluid" style="width: 30px; height: 30px">
       <h4 (click)="clickedOnIcon()"><i>Sidekick</i></h4>
       <img src="user-icon.png" alt="User Icon" class="img-fluid rounded-circle mb-2" style="width: 50px; height: 50px;">
-      <p class="mb-1 fw-bold">User Name</p>
+      <p class="mb-1 fw-bold">{{ this.userService.userInfo?.accountName }}</p>
     </div>
     <div class="nav-buttons d-flex flex-column">
       <button class="btn btn-outline-primary mb-2" (click)="navigateTo('home')">Home</button>
