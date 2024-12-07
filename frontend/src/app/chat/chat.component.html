@@ -6,10 +6,7 @@
     </div>
     <div class="feed">
       <ul class="list-group">
-        <li *ngFor="let status of this.microblogService.statuses" class="list-group-item message-item">
-          {{ status.createdAt }} : {{ status.content }}
-          <button class="btn btn-secondary" (click)="clickedOnExpandPost(status.id)">+</button>
-        </li>
+        <app-status *ngFor="let status of this.microblogService.statuses" [status]="status" class="list-group-item message-item"></app-status>
       </ul>
     </div>
   </div>

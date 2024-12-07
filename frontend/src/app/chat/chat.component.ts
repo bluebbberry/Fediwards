@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {ChangeDetectorRef, Component} from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import {CommonModule, NgFor} from '@angular/common';
@@ -6,11 +6,12 @@ import { MicroblogService } from "../services/microblog.service";
 import { SidekickService } from "../services/sidekick.service";
 import {Sidekick} from "../model/sidekick";
 import {Router} from "@angular/router";
+import {StatusComponent} from "./status/status.component";
 
 @Component({
   selector: 'app-chat',
   standalone: true,
-  imports: [ FormsModule, CommonModule, NgFor ],
+  imports: [FormsModule, CommonModule, NgFor, StatusComponent],
   templateUrl: './chat.component.html',
   styleUrl: './chat.component.scss'
 })
@@ -19,8 +20,9 @@ export class ChatComponent {
   newMessage: string = '';
   selectedSidekick!: Sidekick;
   selectedStartValue: string;
+  protected changed: boolean = false;
 
-  constructor(private http: HttpClient, protected microblogService: MicroblogService, protected sidekickService: SidekickService, private router: Router) {
+  constructor(private http: HttpClient, protected microblogService: MicroblogService, protected sidekickService: SidekickService, private router: Router, private changeDetectionRef: ChangeDetectorRef) {
     if (!sidekickService.hasUserChosenSidekick) {
       router.navigate(['/']);
     }
@@ -44,9 +46,5 @@ export class ChatComponent {
 
   onChange(value: string) {
     this.sidekickService.setSelectedSidekick(this.sidekickService.getByName(value));
-  }
-
-  clickedOnExpandPost(statusId: string) {
-    this.microblogService.getDescendantsOfPost(statusId);
   }
 }
