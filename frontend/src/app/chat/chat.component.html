@@ -19,16 +19,8 @@
     </div>
   </div>
 
-  <!-- Main Content -->
   <div class="feed-container flex-grow-1 d-flex flex-column">
-    <div class="feed-header">
-      <h1>Home</h1>
-    </div>
-    <div class="feed flex-grow-1 overflow-auto">
-      <ul class="list-group">
-        <app-status *ngFor="let status of this.microblogService.statuses" [status]="status" class="list-group-item message-item"></app-status>
-      </ul>
-    </div>
+    <app-home-feed class="overflow-auto"></app-home-feed>
   </div>
 
   <!-- Fixed Post Box -->

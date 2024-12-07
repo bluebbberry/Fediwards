@@ -8,11 +8,12 @@ import {Sidekick} from "../model/sidekick";
 import {Router} from "@angular/router";
 import {StatusComponent} from "./status/status.component";
 import {UserService} from "../services/user.service";
+import {HomeFeedComponent} from "./home-feed/home-feed.component";
 
 @Component({
   selector: 'app-chat',
   standalone: true,
-  imports: [FormsModule, CommonModule, NgFor, StatusComponent],
+  imports: [FormsModule, CommonModule, NgFor, StatusComponent, HomeFeedComponent],
   templateUrl: './chat.component.html',
   styleUrl: './chat.component.scss'
 })
