@@ -1,7 +1,7 @@
 <div class="container mt-5">
   <div class="text-center mb-4">
-    <h1>Choose Your Sidekick</h1>
-    <p>Select one of our cool bots to get started!</p>
+    <h1>Choose Your Sidekicks</h1>
+    <p>Select one to three of our cool bots to get started!</p>
   </div>
   <div class="row justify-content-center">
     <div class="col-md-10">
@@ -14,6 +14,7 @@
           <div
             class="sidekick-card text-center"
             (click)="onSidekickSelect(sidekick)"
+            [ngClass]="{ 'selected': sidekick.selected }"
           >
             <img
               [src]="sidekick.imagePath"
