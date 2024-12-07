@@ -18,7 +18,7 @@ export async function sendMsgToServerOverSidekick(message, sidekick) {
         await send(lowEffortMessage);
     } else if (sidekick === 'hamlet') {
         const shakespearQuotes = getRandomQuote();
-        await send(message + " " + shakespearQuotes);
+        await send(message + " - " + shakespearQuotes);
     } else if (sidekick === 'legion') {
         const msgSplit = splitAfterHash(message);
         if (msgSplit.length > 1 && isNumeric(msgSplit[0])) {
@@ -83,7 +83,7 @@ function getRandomQuote() {
     const randomIndex = Math.floor(Math.random() * shakespearQuotes.length);
     const randomQuote = shakespearQuotes[randomIndex];
 
-    return `${randomQuote} by William Shakespeare`;
+    return `${randomQuote} (William Shakespeare)`;
 }
 
 function makeLookLowEffort(text) {
