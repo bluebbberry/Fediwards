@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {Sidekick} from "../model/sidekick";
 import {CookieService} from "ngx-cookie-service";
 
@@ -11,24 +11,37 @@ export class SidekickService {
 
   private allSidekicks: Sidekick[] = [
     new Sidekick("larry", "Larry", "Larry - Classic Text Posting", "larry.png"),
-    new Sidekick("spark", "Spark", "Spark - Angry Mode (Turns Every Post Into CAPS!!!)", "spark2.png"),
     new Sidekick("jea", "Jea", "Jea - Schedule posts by starting post with #numberOfMinutes", "jea2.png"),
+    new Sidekick("ennui", "Ennui", "Ennui - Laid-back, seemingly low-effort posts guaranteed", "slack.jpg"),
+    new Sidekick("spark", "Spark", "Spark - Angry Mode (Turns Every Post Into CAPS!!!)", "spark2.png"),
+    new Sidekick("hamlet", "Hamlet", "Hamlet - Ends every post with a Shakespeare quote", "hamlet.jpg"),
+    new Sidekick("legion", "Legion", "Legion - Post the same post multiple times with #numberOfTimesPosted", "legion.jpg"),
     //new Sidekick("flash", "Flash", "Flash - Allows to program conditional replies"),
     // new Sidekick("ava", "Ava", "Ava - Text Posting Plus Sparkly Commands"),
-    // new Sidekick("legion", "Legion", "Legion - Reply to many people at once and send posts in great amount")
   ];
   private selectedSidekick: Sidekick;
   public hasUserChosenSidekick: boolean;
+  public sidekickQuickSelectionSet: any = {};
 
   constructor(private cookieService: CookieService) {
-    debugger
+    this.allSidekicks.forEach(sidekick => {this.sidekickQuickSelectionSet[sidekick.name] = false;})
+    this.loadSidekickQuickSelectionFromCookie();
+
     const sideKickCookieVal: string = this.cookieService.get(this.COOKIE_CHOSE_SIDEKICK);
     this.hasUserChosenSidekick = sideKickCookieVal !== '';
     if (this.hasUserChosenSidekick) {
       this.selectedSidekick = this.getByName(sideKickCookieVal);
     } else {
       // default sidekick
-      this.selectedSidekick = this.allSidekicks[0];
+      const randomSidekick = this.getRandomSidekickFromQuickSelectionSet();
+      if (randomSidekick) {
+        this.selectedSidekick = randomSidekick;
+      }
+      else {
+        this.selectedSidekick = this.allSidekicks[0];
+        this.selectedSidekick.selected = true;
+      }
+      this.sidekickQuickSelectionSet[this.selectedSidekick.name] = true;
       this.cookieService.set(this.COOKIE_CHOSE_SIDEKICK, this.selectedSidekick.name, this.COOKIE_EXPIRE_DAYS);
     }
   }
@@ -45,6 +58,22 @@ export class SidekickService {
     return this.allSidekicks;
   }
 
+  public getAllSidekicksInQuickSelectionSet(): Sidekick[] {
+    const result : Sidekick[] = [];
+    for (const sidekickName of Object.keys(this.sidekickQuickSelectionSet).filter(name => this.sidekickQuickSelectionSet[name] === true)) {
+      const s = this.allSidekicks.find(s => s.name === sidekickName);
+      if (s) result.push(s);
+    }
+    return result;
+  }
+
+  public getRandomSidekickFromQuickSelectionSet(): Sidekick | null {
+    const namesArray: string[] = Object.keys(this.sidekickQuickSelectionSet).filter(name => this.sidekickQuickSelectionSet[name] === true);
+    if (namesArray.length === 0) return null;
+    const rndSidekickName = namesArray[Math.floor(Math.random() * namesArray.length)];
+    return this.allSidekicks.find(s => s.name === rndSidekickName)!;
+  }
+
   public setSelectedSidekick(sidekick: Sidekick) {
     this.selectedSidekick = sidekick;
     this.hasUserChosenSidekick = true;
@@ -53,5 +82,21 @@ export class SidekickService {
 
   public getSelectedSidekick() {
     return this.selectedSidekick;
+  }
+
+  public saveSidekickQuickSelectionToCookie() {
+    this.cookieService.set("sidekickQuickSelection", JSON.stringify(Object.keys(this.sidekickQuickSelectionSet).filter((name: string) => this.sidekickQuickSelectionSet[name] === true).join(";")), this.COOKIE_EXPIRE_DAYS);
+  }
+
+  public loadSidekickQuickSelectionFromCookie() {
+    const sidekickQuickSelectionSet = this.cookieService.get("sidekickQuickSelection");
+    if (sidekickQuickSelectionSet) {
+      const selectedSidekickNames: string[] = JSON.parse(sidekickQuickSelectionSet).split(";");
+      for (const name of selectedSidekickNames) {
+        this.sidekickQuickSelectionSet[name] = true;
+        const sidekick = this.allSidekicks.find((sidekick: Sidekick) => sidekick.name === name);
+        if (sidekick) sidekick.selected = true;
+      }
+    }
   }
 }
