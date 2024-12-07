@@ -6,7 +6,6 @@ import { MicroblogService } from "../services/microblog.service";
 import { SidekickService } from "../services/sidekick.service";
 import {Sidekick} from "../model/sidekick";
 import {Router} from "@angular/router";
-import {StatusComponent} from "./status/status.component";
 import {UserService} from "../services/user.service";
 import {HomeFeedComponent} from "./home-feed/home-feed.component";
 import {LocalFeedComponent} from "./local-feed/local-feed.component";
@@ -19,7 +18,7 @@ enum Feed {
 @Component({
   selector: 'app-chat',
   standalone: true,
-  imports: [FormsModule, CommonModule, NgFor, StatusComponent, HomeFeedComponent, LocalFeedComponent, GlobalFeedComponent],
+  imports: [FormsModule, CommonModule, NgFor, HomeFeedComponent, LocalFeedComponent, GlobalFeedComponent],
   templateUrl: './chat.component.html',
   styleUrl: './chat.component.scss'
 })
@@ -77,4 +76,8 @@ export class ChatComponent {
   }
 
   protected readonly Feed = Feed;
+
+  clickedOnEditSidekickSelection() {
+    this.router.navigate(['/choose-sidekick']);
+  }
 }
