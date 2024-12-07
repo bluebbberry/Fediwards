@@ -33,7 +33,17 @@ export class ChooseSidekickComponent {
       sidekick.selected = false; // Deselect if limit exceeded
       alert("Selected more than 3 sidekicks");
     } else {
-      this.sidekickService.setSelectedSidekick(sidekick);
+      if (sidekick.selected) {
+        this.sidekickService.setSelectedSidekick(sidekick);
+      } else if (this.sidekickService.getSelectedSidekick() == sidekick) {
+        const randomSidekick = this.sidekickService.getRandomSidekickFromQuickSelectionSet();
+        if (randomSidekick) {
+          this.sidekickService.setSelectedSidekick(randomSidekick);
+        } else {
+          this.sidekickService.setSelectedSidekick(this.sidekickService.getAllSidekicks()[0]);
+          this.sidekickService.getAllSidekicks()[0].selected = true;
+        }
+      }
       this.sidekickService.sidekickQuickSelectionSet[sidekick.name] = !this.sidekickService.sidekickQuickSelectionSet[sidekick.name];
     }
   }

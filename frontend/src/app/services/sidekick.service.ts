@@ -59,6 +59,13 @@ export class SidekickService {
     return result;
   }
 
+  public getRandomSidekickFromQuickSelectionSet(): Sidekick | null {
+    const namesArray: string[] = Object.keys(this.sidekickQuickSelectionSet).filter(name => this.sidekickQuickSelectionSet[name] === true);
+    if (namesArray.length === 0) return null;
+    const rndSidekickName = namesArray[Math.floor(Math.random() * namesArray.length)];
+    return this.allSidekicks.find(s => s.name === rndSidekickName)!;
+  }
+
   public setSelectedSidekick(sidekick: Sidekick) {
     this.selectedSidekick = sidekick;
     this.hasUserChosenSidekick = true;
