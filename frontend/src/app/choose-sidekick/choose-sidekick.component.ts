@@ -21,10 +21,12 @@ export class ChooseSidekickComponent {
   }
 
   clickedOnStart() {
+    this.sidekickService.saveSidekickQuickSelectionToCookie();
     this.router.navigate(['chat']);
   }
 
   onSidekickSelect(sidekick: Sidekick) {
     this.sidekickService.setSelectedSidekick(sidekick);
+    this.sidekickService.sidekickQuickSelectionSet[sidekick.name] = true;
   }
 }

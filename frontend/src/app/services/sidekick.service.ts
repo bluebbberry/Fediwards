@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {Sidekick} from "../model/sidekick";
 import {CookieService} from "ngx-cookie-service";
 
@@ -21,6 +21,7 @@ export class SidekickService {
   ];
   private selectedSidekick: Sidekick;
   public hasUserChosenSidekick: boolean;
+  public sidekickQuickSelectionSet: any = {};
 
   constructor(private cookieService: CookieService) {
     const sideKickCookieVal: string = this.cookieService.get(this.COOKIE_CHOSE_SIDEKICK);
@@ -32,6 +33,8 @@ export class SidekickService {
       this.selectedSidekick = this.allSidekicks[0];
       this.cookieService.set(this.COOKIE_CHOSE_SIDEKICK, this.selectedSidekick.name, this.COOKIE_EXPIRE_DAYS);
     }
+
+    this.loadSidekickQuickSelectionFromCookie();
   }
 
   public getByName(name: string): Sidekick {
@@ -46,6 +49,15 @@ export class SidekickService {
     return this.allSidekicks;
   }
 
+  public getAllSidekicksInQuickSelectionSet(): Sidekick[] {
+    const result : Sidekick[] = [];
+    for (const sidekickName of Object.keys(this.sidekickQuickSelectionSet)) {
+      const s = this.allSidekicks.find(s => s.name === sidekickName);
+      if (s) result.push(s);
+    }
+    return result;
+  }
+
   public setSelectedSidekick(sidekick: Sidekick) {
     this.selectedSidekick = sidekick;
     this.hasUserChosenSidekick = true;
@@ -54,5 +66,19 @@ export class SidekickService {
 
   public getSelectedSidekick() {
     return this.selectedSidekick;
+  }
+
+  public saveSidekickQuickSelectionToCookie() {
+    this.cookieService.set("sidekickQuickSelection", JSON.stringify(Object.keys(this.sidekickQuickSelectionSet).join(";")), this.COOKIE_EXPIRE_DAYS);
+  }
+
+  public loadSidekickQuickSelectionFromCookie() {
+    const sidekickQuickSelectionSet = this.cookieService.get("sidekickQuickSelection");
+    if (sidekickQuickSelectionSet) {
+      const names: string[] = JSON.parse(sidekickQuickSelectionSet).split(";");
+      for (const name of names) {
+        this.sidekickQuickSelectionSet[name] = true;
+      }
+    }
   }
 }
