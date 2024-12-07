@@ -34,6 +34,7 @@ export class SidekickService {
       this.cookieService.set(this.COOKIE_CHOSE_SIDEKICK, this.selectedSidekick.name, this.COOKIE_EXPIRE_DAYS);
     }
 
+    this.allSidekicks.forEach(sidekick => {this.sidekickQuickSelectionSet[sidekick.name] = false;})
     this.loadSidekickQuickSelectionFromCookie();
   }
 
@@ -51,7 +52,7 @@ export class SidekickService {
 
   public getAllSidekicksInQuickSelectionSet(): Sidekick[] {
     const result : Sidekick[] = [];
-    for (const sidekickName of Object.keys(this.sidekickQuickSelectionSet)) {
+    for (const sidekickName of Object.keys(this.sidekickQuickSelectionSet).filter(name => this.sidekickQuickSelectionSet[name] === true)) {
       const s = this.allSidekicks.find(s => s.name === sidekickName);
       if (s) result.push(s);
     }
@@ -69,7 +70,7 @@ export class SidekickService {
   }
 
   public saveSidekickQuickSelectionToCookie() {
-    this.cookieService.set("sidekickQuickSelection", JSON.stringify(Object.keys(this.sidekickQuickSelectionSet).join(";")), this.COOKIE_EXPIRE_DAYS);
+    this.cookieService.set("sidekickQuickSelection", JSON.stringify(Object.keys(this.sidekickQuickSelectionSet).filter((name: string) => this.sidekickQuickSelectionSet[name] === true).join(";")), this.COOKIE_EXPIRE_DAYS);
   }
 
   public loadSidekickQuickSelectionFromCookie() {

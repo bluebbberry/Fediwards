@@ -27,6 +27,7 @@ export class ChooseSidekickComponent {
 
   onSidekickSelect(sidekick: Sidekick) {
     this.sidekickService.setSelectedSidekick(sidekick);
-    this.sidekickService.sidekickQuickSelectionSet[sidekick.name] = true;
+    this.sidekickService.sidekickQuickSelectionSet[sidekick.name] = !this.sidekickService.sidekickQuickSelectionSet[sidekick.name];
+    console.log(this.sidekickService.sidekickQuickSelectionSet);
   }
 }
