@@ -24,18 +24,26 @@ export class SidekickService {
   public sidekickQuickSelectionSet: any = {};
 
   constructor(private cookieService: CookieService) {
+    this.allSidekicks.forEach(sidekick => {this.sidekickQuickSelectionSet[sidekick.name] = false;})
+    this.loadSidekickQuickSelectionFromCookie();
+
     const sideKickCookieVal: string = this.cookieService.get(this.COOKIE_CHOSE_SIDEKICK);
     this.hasUserChosenSidekick = sideKickCookieVal !== '';
     if (this.hasUserChosenSidekick) {
       this.selectedSidekick = this.getByName(sideKickCookieVal);
     } else {
       // default sidekick
-      this.selectedSidekick = this.allSidekicks[0];
+      const randomSidekick = this.getRandomSidekickFromQuickSelectionSet();
+      if (randomSidekick) {
+        this.selectedSidekick = randomSidekick;
+      }
+      else {
+        this.selectedSidekick = this.allSidekicks[0];
+        this.selectedSidekick.selected = true;
+      }
+      this.sidekickQuickSelectionSet[this.selectedSidekick.name] = true;
       this.cookieService.set(this.COOKIE_CHOSE_SIDEKICK, this.selectedSidekick.name, this.COOKIE_EXPIRE_DAYS);
     }
-
-    this.allSidekicks.forEach(sidekick => {this.sidekickQuickSelectionSet[sidekick.name] = false;})
-    this.loadSidekickQuickSelectionFromCookie();
   }
 
   public getByName(name: string): Sidekick {
