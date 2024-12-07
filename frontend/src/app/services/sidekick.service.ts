@@ -11,11 +11,13 @@ export class SidekickService {
 
   private allSidekicks: Sidekick[] = [
     new Sidekick("larry", "Larry", "Larry - Classic Text Posting", "larry.png"),
-    new Sidekick("spark", "Spark", "Spark - Angry Mode (Turns Every Post Into CAPS!!!)", "spark2.png"),
     new Sidekick("jea", "Jea", "Jea - Schedule posts by starting post with #numberOfMinutes", "jea2.png"),
+    new Sidekick("ennui", "Ennui", "Ennui - Laid-back, seemingly low-effort posts guaranteed", "slack.jpg"),
+    new Sidekick("spark", "Spark", "Spark - Angry Mode (Turns Every Post Into CAPS!!!)", "spark2.png"),
+    new Sidekick("hamlet", "Hamlet", "Hamlet - Ends every post with a Shakespeare quote", "hamlet.jpg"),
+    new Sidekick("legion", "Legion", "Legion - Post the same post multiple times with #numberOfTimesPosted", "legion.jpg"),
     //new Sidekick("flash", "Flash", "Flash - Allows to program conditional replies"),
     // new Sidekick("ava", "Ava", "Ava - Text Posting Plus Sparkly Commands"),
-    // new Sidekick("legion", "Legion", "Legion - Reply to many people at once and send posts in great amount")
   ];
   private selectedSidekick: Sidekick;
   public hasUserChosenSidekick: boolean;
