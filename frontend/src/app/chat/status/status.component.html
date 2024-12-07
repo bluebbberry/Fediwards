@@ -1,0 +1,5 @@
+{{ status.createdAt }} : {{ status.content }}
+<button class="btn btn-secondary" (click)="clickedOnExpandPost(status)"> {{ expandButtonText }}</button>
+<div [hidden]="!repliesExpanded">
+  Replies:&nbsp;<label *ngFor="let descendant of (descendants$ | async)"> {{ descendant.createdAt }} : {{ descendant.content }} </label>
+</div>
