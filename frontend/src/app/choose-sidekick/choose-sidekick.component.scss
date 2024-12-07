@@ -19,6 +19,11 @@
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
+.sidekick-card.selected {
+  border-color: #007bff;
+  background-color: #f0f8ff;
+}
+
 /* Sidekick Image */
 .sidekick-image {
   max-width: 100%;

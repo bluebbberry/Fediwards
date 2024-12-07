@@ -3,6 +3,7 @@ export class Sidekick {
   public displayText: string;
   public description: string;
   public imagePath: string;
+  public selected: boolean = false;
 
   constructor(name: string, displayText: string, description: string, imagePath: string) {
     this.name = name;

@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import {SidekickService} from "../services/sidekick.service";
 import {ReactiveFormsModule} from "@angular/forms";
-import {NgForOf} from "@angular/common";
+import {NgClass, NgForOf} from "@angular/common";
 import {Sidekick} from "../model/sidekick";
 
 @Component({
@@ -10,7 +10,8 @@ import {Sidekick} from "../model/sidekick";
   standalone: true,
   imports: [
     ReactiveFormsModule,
-    NgForOf
+    NgForOf,
+    NgClass
   ],
   templateUrl: './choose-sidekick.component.html',
   styleUrl: './choose-sidekick.component.scss'
@@ -26,8 +27,14 @@ export class ChooseSidekickComponent {
   }
 
   onSidekickSelect(sidekick: Sidekick) {
-    this.sidekickService.setSelectedSidekick(sidekick);
-    this.sidekickService.sidekickQuickSelectionSet[sidekick.name] = !this.sidekickService.sidekickQuickSelectionSet[sidekick.name];
-    console.log(this.sidekickService.sidekickQuickSelectionSet);
+    sidekick.selected = !sidekick.selected;
+    const selectedCount = this.sidekickService.getAllSidekicks().filter(s => s.selected).length;
+    if (selectedCount > 3) {
+      sidekick.selected = false; // Deselect if limit exceeded
+      alert("Selected more than 3 sidekicks");
+    } else {
+      this.sidekickService.setSelectedSidekick(sidekick);
+      this.sidekickService.sidekickQuickSelectionSet[sidekick.name] = !this.sidekickService.sidekickQuickSelectionSet[sidekick.name];
+    }
   }
 }
