@@ -1,10 +1,30 @@
-<div class="container">
-  <!-- Messages Feed -->
-  <div class="feed-container">
-    <div class="feed-header">
-      <h1>My Posts</h1>
+<div class="container-fluid vh-100 d-flex">
+  <!-- Left Sidebar -->
+  <div class="sidebar-container bg-light border-end p-3" style="width: 250px;">
+    <div class="user-info text-center mb-4">
+      <img src="sidekick_icon2.png" (click)="clickedOnIcon()" alt="sidekick-icon" class="img-fluid" style="width: 30px; height: 30px">
+      <h4 (click)="clickedOnIcon()"><i>Sidekick</i></h4>
+      <img src="user-icon.png" alt="User Icon" class="img-fluid rounded-circle mb-2" style="width: 50px; height: 50px;">
+      <p class="mb-1 fw-bold">User Name</p>
     </div>
-    <div class="feed">
+    <div class="nav-buttons d-flex flex-column">
+      <button class="btn btn-outline-primary mb-2" (click)="navigateTo('home')">Home</button>
+      <button class="btn btn-outline-secondary mb-2" (click)="navigateTo('local')">Local Feed</button>
+      <button class="btn btn-outline-secondary mb-2" (click)="navigateTo('global')">Global Feed</button>
+    </div>
+    <br>
+    <div class="nav-buttons d-flex flex-column">
+      <button class="btn btn-outline-secondary mb-2" (click)="navigateTo('sidekick-settings')">Account Settings</button>
+      <button class="btn btn-outline-secondary mb-2" (click)="navigateTo('sidekick-settings')">Sidekick Settings</button>
+    </div>
+  </div>
+
+  <!-- Main Content -->
+  <div class="feed-container flex-grow-1 d-flex flex-column">
+    <div class="feed-header">
+      <h1>Home</h1>
+    </div>
+    <div class="feed flex-grow-1 overflow-auto">
       <ul class="list-group">
         <app-status *ngFor="let status of this.microblogService.statuses" [status]="status" class="list-group-item message-item"></app-status>
       </ul>

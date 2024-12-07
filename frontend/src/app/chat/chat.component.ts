@@ -47,4 +47,12 @@ export class ChatComponent {
   onChange(value: string) {
     this.sidekickService.setSelectedSidekick(this.sidekickService.getByName(value));
   }
+
+  navigateTo(home: string) {
+
+  }
+
+  clickedOnIcon() {
+    this.router.navigate(['/']);
+  }
 }
