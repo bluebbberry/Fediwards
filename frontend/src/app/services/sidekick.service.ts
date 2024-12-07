@@ -79,7 +79,7 @@ export class SidekickService {
       const selectedSidekickNames: string[] = JSON.parse(sidekickQuickSelectionSet).split(";");
       for (const name of selectedSidekickNames) {
         this.sidekickQuickSelectionSet[name] = true;
-        const sidekick = this.allSidekicks.find((sidekick: Sidekick) => sidekick.name = name);
+        const sidekick = this.allSidekicks.find((sidekick: Sidekick) => sidekick.name === name);
         if (sidekick) sidekick.selected = true;
       }
     }
