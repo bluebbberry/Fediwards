@@ -2,6 +2,7 @@ import {Component, Input} from '@angular/core';
 import {MicroblogService} from "../../services/microblog.service";
 import {AsyncPipe, NgFor} from "@angular/common";
 import {BehaviorSubject} from "rxjs";
+import {DomSanitizer} from "@angular/platform-browser";
 
 @Component({
   selector: 'app-status',
@@ -17,7 +18,7 @@ export class StatusComponent {
   repliesExpanded: boolean = false;
   expandButtonText: string = "+";
 
-  constructor(public microBlogService: MicroblogService) {}
+  constructor(public microBlogService: MicroblogService, private sanitizer: DomSanitizer) {}
 
   clickedOnExpandPost(status: any) {
     if (this.repliesExpanded) {
@@ -32,7 +33,15 @@ export class StatusComponent {
     }
   }
 
+  safelyRenderHTML(htmlString: string) {
+    return this.sanitizer.bypassSecurityTrustHtml(htmlString);
+  }
+
   updateDescendants(newDescendants: any[]) {
     this.descendants$.next(newDescendants);
+  }
+
+  renderHTML(descendant: any) {
+    return this.safelyRenderHTML(descendant.createdAt + " : " + descendant.content);
   }
 }
