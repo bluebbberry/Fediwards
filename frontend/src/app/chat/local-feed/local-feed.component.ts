@@ -15,4 +15,9 @@ import {MicroblogService} from "../../services/microblog.service";
 })
 export class LocalFeedComponent {
   constructor(protected microblogService: MicroblogService) {}
+
+  clickedOnReload() {
+    this.microblogService.localStatuses= undefined;
+    this.microblogService.fetchLocalStatuses();
+  }
 }

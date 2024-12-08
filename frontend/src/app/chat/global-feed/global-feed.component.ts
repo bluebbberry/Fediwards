@@ -15,4 +15,9 @@ import {MicroblogService} from "../../services/microblog.service";
 })
 export class GlobalFeedComponent {
   constructor(protected microblogService: MicroblogService) {}
+
+  clickedOnReload() {
+    this.microblogService.globalStatuses = undefined;
+    this.microblogService.fetchGlobalStatuses();
+  }
 }
