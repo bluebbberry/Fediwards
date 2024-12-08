@@ -19,30 +19,30 @@ export class SidekickService {
     //new Sidekick("flash", "Flash", "Flash - Allows to program conditional replies"),
     // new Sidekick("ava", "Ava", "Ava - Text Posting Plus Sparkly Commands"),
   ];
-  private selectedSidekick: Sidekick;
-  public hasUserChosenSidekick: boolean;
+  private selectedSidekick!: Sidekick | null;
+  public hasUserChosenSidekick!: boolean;
   public sidekickQuickSelectionSet: any = {};
 
   constructor(private cookieService: CookieService) {
+    this.initQuickSelection();
+    this.initSelectedSidekick();
+  }
+
+  private initQuickSelection() {
+    // init quick selection for all sidekicks
     this.allSidekicks.forEach(sidekick => {this.sidekickQuickSelectionSet[sidekick.name] = false;})
     this.loadSidekickQuickSelectionFromCookie();
+  }
 
-    const sideKickCookieVal: string = this.cookieService.get(this.COOKIE_CHOSE_SIDEKICK);
-    this.hasUserChosenSidekick = sideKickCookieVal !== '';
+  private initSelectedSidekick() {
+    const selectedSidekickCookieVal: string = this.cookieService.get(this.COOKIE_CHOSE_SIDEKICK);
+    this.hasUserChosenSidekick = selectedSidekickCookieVal !== '';
+    console.log("Has selected: " + this.hasUserChosenSidekick);
     if (this.hasUserChosenSidekick) {
-      this.selectedSidekick = this.getByName(sideKickCookieVal);
+      this.selectedSidekick = this.getByName(selectedSidekickCookieVal);
     } else {
-      // default sidekick
-      const randomSidekick = this.getRandomSidekickFromQuickSelectionSet();
-      if (randomSidekick) {
-        this.selectedSidekick = randomSidekick;
-      }
-      else {
-        this.selectedSidekick = this.allSidekicks[0];
-        this.selectedSidekick.selected = true;
-      }
-      this.sidekickQuickSelectionSet[this.selectedSidekick.name] = true;
-      this.cookieService.set(this.COOKIE_CHOSE_SIDEKICK, this.selectedSidekick.name, this.COOKIE_EXPIRE_DAYS);
+      // user has not yet chosen sidekick
+      this.selectedSidekick = null;
     }
   }
 
@@ -74,10 +74,15 @@ export class SidekickService {
     return this.allSidekicks.find(s => s.name === rndSidekickName)!;
   }
 
-  public setSelectedSidekick(sidekick: Sidekick) {
-    this.selectedSidekick = sidekick;
-    this.hasUserChosenSidekick = true;
-    this.cookieService.set(this.COOKIE_CHOSE_SIDEKICK, sidekick.name, this.COOKIE_EXPIRE_DAYS);
+  public setSelectedSidekick(sidekick: Sidekick | null) {
+    if (sidekick) {
+      this.selectedSidekick = sidekick;
+      this.hasUserChosenSidekick = true;
+      this.cookieService.set(this.COOKIE_CHOSE_SIDEKICK, sidekick.name, this.COOKIE_EXPIRE_DAYS);
+    } else {
+      this.selectedSidekick = null;
+      this.cookieService.delete(this.COOKIE_CHOSE_SIDEKICK);
+    }
   }
 
   public getSelectedSidekick() {
@@ -97,6 +102,23 @@ export class SidekickService {
         const sidekick = this.allSidekicks.find((sidekick: Sidekick) => sidekick.name === name);
         if (sidekick) sidekick.selected = true;
       }
+    }
+  }
+
+  setQuickSelectionVal(sidekick: Sidekick, selected: boolean) {
+    this.sidekickQuickSelectionSet[sidekick.name] = selected;
+  }
+
+  /**
+   * After un-selecting a sidekick, this method chooses a random sidekick from the quick selection or
+   * set the value to null.
+   */
+  choseNewSelectedSidekick() {
+    const randomSidekick = this.getRandomSidekickFromQuickSelectionSet();
+    if (randomSidekick) {
+      this.setSelectedSidekick(randomSidekick);
+    } else {
+      this.setSelectedSidekick(null);
     }
   }
 }
