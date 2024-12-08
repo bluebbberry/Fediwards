@@ -23,7 +23,7 @@ export class StartPageComponent {
 
   welcomeText() {
     if (this.sidekickService.hasUserChosenSidekick) {
-      return "Welcome back, says " + this.sidekickService.getSelectedSidekick().displayText;
+      return "Welcome back, says " + this.sidekickService.getSelectedSidekick()!.displayText;
     } else {
       // first time
       return "Welcome, Trainer!";
