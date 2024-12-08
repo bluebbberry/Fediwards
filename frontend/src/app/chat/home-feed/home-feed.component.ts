@@ -14,6 +14,5 @@ import {NgForOf} from "@angular/common";
   styleUrl: './home-feed.component.scss'
 })
 export class HomeFeedComponent {
-  constructor(protected microblogService: MicroblogService) {
-  }
+  constructor(protected microblogService: MicroblogService) {}
 }

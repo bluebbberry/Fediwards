@@ -38,7 +38,9 @@ export class ChatComponent {
     // user has already chosen sidekick, the value cannot be null
     this.selectedSidekick = this.sidekickService.getSelectedSidekick()!;
     this.selectedStartValue = this.selectedSidekick.name;
-    this.microblogService.fetchStatuses();
+    this.microblogService.fetchHomeStatuses();
+    this.microblogService.fetchLocalStatuses();
+    this.microblogService.fetchGlobalStatuses();
     this.userService.fetchUserInfo();
   }
 
@@ -46,7 +48,7 @@ export class ChatComponent {
     console.log("Clicked on send");
     if (this.newMessage) {
       this.microblogService.sendMessage(this.newMessage, this.sidekickService.getSelectedSidekick()!, () => {
-        this.microblogService.fetchStatuses();
+        this.microblogService.fetchHomeStatuses();
       });
       this.newMessage = '';
     } else {

@@ -4,6 +4,6 @@
 </div>
 <div class="feed flex-grow-1 overflow-auto">
   <ul class="list-group">
-    <app-status *ngFor="let status of this.microblogService.statuses" [status]="status" class="list-group-item message-item"></app-status>
+    <app-status *ngFor="let status of this.microblogService.homeStatuses" [status]="status" class="list-group-item message-item"></app-status>
   </ul>
 </div>
