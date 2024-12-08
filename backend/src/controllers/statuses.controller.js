@@ -15,7 +15,31 @@ router.post("/", (request, response) => {
 });
 
 // get statuses from client
-router.get("/", async (request, response) => {
+router.get("/home", async (request, response) => {
+    try {
+        // Send message to mastodon server
+        const posts = await getPosts(Config.ACCOUNT_NAME);
+        response.status(200).json({ requestBody: posts });
+    } catch (error) {
+        console.error("Error fetching posts:", error);
+        response.status(500).json({ error: "Failed to fetch posts" });
+    }
+});
+
+// get statuses from client
+router.get("/local", async (request, response) => {
+    try {
+        // Send message to mastodon server
+        const posts = await getPosts(Config.ACCOUNT_NAME);
+        response.status(200).json({ requestBody: posts });
+    } catch (error) {
+        console.error("Error fetching posts:", error);
+        response.status(500).json({ error: "Failed to fetch posts" });
+    }
+});
+
+// get statuses from client
+router.get("/global", async (request, response) => {
     try {
         // Send message to mastodon server
         const posts = await getPosts(Config.ACCOUNT_NAME);

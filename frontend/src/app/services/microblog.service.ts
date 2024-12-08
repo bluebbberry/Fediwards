@@ -29,10 +29,10 @@ export class MicroblogService {
       });
   }
 
-  fetchStatuses() {
+  fetchHomeStatuses() {
     this.homeStatuses = undefined;
     const headers = { 'content-type': 'application/json'};
-    return this.http.get<any>(`${this.url}/statuses`, { headers: headers }).subscribe((response: any) => {
+    return this.http.get<any>(`${this.url}/statuses/home`, { headers: headers }).subscribe((response: any) => {
       console.log(response);
       response["requestBody"].forEach((status: any) => { status.descendants = [] });
       this.homeStatuses = response["requestBody"];
@@ -55,5 +55,25 @@ export class MicroblogService {
       });
       console.log(filter);
     }
+  }
+
+  fetchLocalStatuses() {
+    this.localStatuses = undefined;
+    const headers = { 'content-type': 'application/json'};
+    return this.http.get<any>(`${this.url}/statuses/local`, { headers: headers }).subscribe((response: any) => {
+      console.log(response);
+      response["requestBody"].forEach((status: any) => { status.descendants = [] });
+      this.localStatuses = response["requestBody"];
+    });
+  }
+
+  fetchGlobalStatuses() {
+    this.globalStatuses = undefined;
+    const headers = { 'content-type': 'application/json'};
+    return this.http.get<any>(`${this.url}/statuses/global`, { headers: headers }).subscribe((response: any) => {
+      console.log(response);
+      response["requestBody"].forEach((status: any) => { status.descendants = [] });
+      this.globalStatuses = response["requestBody"];
+    });
   }
 }
