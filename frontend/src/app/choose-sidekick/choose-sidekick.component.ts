@@ -17,9 +17,7 @@ import {Sidekick} from "../model/sidekick";
   styleUrl: './choose-sidekick.component.scss'
 })
 export class ChooseSidekickComponent {
-  constructor(private router: Router, protected sidekickService: SidekickService) {
-    sidekickService.setSelectedSidekick(sidekickService.getAllSidekicks()[0]);
-  }
+  constructor(private router: Router, protected sidekickService: SidekickService) {}
 
   clickedOnStart() {
     this.sidekickService.saveSidekickQuickSelectionToCookie();
@@ -33,18 +31,13 @@ export class ChooseSidekickComponent {
       sidekick.selected = false; // Deselect if limit exceeded
       alert("Selected more than 3 sidekicks");
     } else {
+      this.sidekickService.setQuickSelectionVal(sidekick, !this.sidekickService.sidekickQuickSelectionSet[sidekick.name]);
       if (sidekick.selected) {
         this.sidekickService.setSelectedSidekick(sidekick);
       } else if (this.sidekickService.getSelectedSidekick() == sidekick) {
-        const randomSidekick = this.sidekickService.getRandomSidekickFromQuickSelectionSet();
-        if (randomSidekick) {
-          this.sidekickService.setSelectedSidekick(randomSidekick);
-        } else {
-          this.sidekickService.setSelectedSidekick(this.sidekickService.getAllSidekicks()[0]);
-          this.sidekickService.getAllSidekicks()[0].selected = true;
-        }
+        // if the selected sidekick is unselected, a new one needs to be chosen
+        this.sidekickService.choseNewSelectedSidekick();
       }
-      this.sidekickService.sidekickQuickSelectionSet[sidekick.name] = !this.sidekickService.sidekickQuickSelectionSet[sidekick.name];
     }
   }
 }

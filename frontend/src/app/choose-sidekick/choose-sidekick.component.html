@@ -34,7 +34,7 @@
       class="btn btn-primary btn-lg"
       [disabled]="!sidekickService.getSelectedSidekick()"
     >
-      Start Chatting with {{ sidekickService.getSelectedSidekick().displayText || "..." }}
+      Start Chatting with {{ sidekickService.getSelectedSidekick()?.displayText || "..." }}
     </button>
   </div>
 </div>

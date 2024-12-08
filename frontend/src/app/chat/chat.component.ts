@@ -35,7 +35,8 @@ export class ChatComponent {
       router.navigate(['/']);
     }
 
-    this.selectedSidekick = this.sidekickService.getSelectedSidekick();
+    // user has already chosen sidekick, the value cannot be null
+    this.selectedSidekick = this.sidekickService.getSelectedSidekick()!;
     this.selectedStartValue = this.selectedSidekick.name;
     this.microblogService.fetchStatuses();
     this.userService.fetchUserInfo();
@@ -44,7 +45,7 @@ export class ChatComponent {
   sendToMyAccount() {
     console.log("Clicked on send");
     if (this.newMessage) {
-      this.microblogService.sendMessage(this.newMessage, this.sidekickService.getSelectedSidekick(), () => {
+      this.microblogService.sendMessage(this.newMessage, this.sidekickService.getSelectedSidekick()!, () => {
         this.microblogService.fetchStatuses();
       });
       this.newMessage = '';
