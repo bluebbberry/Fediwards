@@ -30,8 +30,10 @@ router.get("/home", async (request, response) => {
 router.get("/local", async (request, response) => {
     try {
         // Send message to mastodon server
-        const posts = await getPosts(Config.ACCOUNT_NAME);
-        response.status(200).json({ requestBody: posts });
+        const statuses = await masto.v1.timelines.home.list({
+            limit: 30,
+        });
+        response.status(200).json({ requestBody: statuses });
     } catch (error) {
         console.error("Error fetching posts:", error);
         response.status(500).json({ error: "Failed to fetch posts" });
@@ -42,8 +44,10 @@ router.get("/local", async (request, response) => {
 router.get("/global", async (request, response) => {
     try {
         // Send message to mastodon server
-        const posts = await getPosts(Config.ACCOUNT_NAME);
-        response.status(200).json({ requestBody: posts });
+        const statuses = await masto.v1.timelines.public.list({
+            limit: 30,
+        });
+        response.status(200).json({ requestBody: statuses });
     } catch (error) {
         console.error("Error fetching posts:", error);
         response.status(500).json({ error: "Failed to fetch posts" });
