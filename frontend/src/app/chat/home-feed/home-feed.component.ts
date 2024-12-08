@@ -15,4 +15,9 @@ import {NgForOf} from "@angular/common";
 })
 export class HomeFeedComponent {
   constructor(protected microblogService: MicroblogService) {}
+
+  clickedOnReload() {
+    this.microblogService.homeStatuses= undefined;
+    this.microblogService.fetchHomeStatuses();
+  }
 }
