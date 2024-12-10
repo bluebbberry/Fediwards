@@ -5,8 +5,12 @@ import {send} from "./post.util.service.js";
 let collective = {};
 
 cron.schedule('0 * * * *', () => {
-    const resultCollective = shuffleAndClearCollective();
-    sendResultCollective(resultCollective);
+    if (Object.keys(collective).length > 0) {
+        const resultCollective = shuffleAndClearCollective();
+        sendResultCollective(resultCollective);
+    } else {
+        console.info("Buzz has nothing to post.");
+    }
 });
 
 function addToCollective(username, message) {
