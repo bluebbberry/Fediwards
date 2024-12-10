@@ -6,7 +6,7 @@ import {HttpClient} from "@angular/common/http";
 })
 export class DolphinService {
 
-  private knowLedgeBase: any = {};
+  public knowLedgeBase: any = {};
   private url: string = "http://localhost:3000";
 
   constructor(private http: HttpClient) {}
@@ -15,9 +15,9 @@ export class DolphinService {
     this.knowLedgeBase = undefined;
     const headers = { 'content-type': 'application/json'};
     return this.http.get<any>(`${this.url}/dolphin`, { headers: headers }).subscribe((response: any) => {
-      this.knowLedgeBase = response["requestBody"];
+      this.knowLedgeBase = Object.values(response["requestBody"].knowledgeBase);
       console.log("Received knowledge base:");
-      console.log(response);
+      console.log(this.knowLedgeBase);
     });
   }
 }

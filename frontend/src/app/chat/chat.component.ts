@@ -37,7 +37,7 @@ export class ChatComponent {
               private router: Router,
               private changeDetectionRef: ChangeDetectorRef,
               protected userService: UserService,
-              private dolphinService: DolphinService) {
+              protected dolphinService: DolphinService) {
     if (!sidekickService.hasUserChosenSidekick) {
       router.navigate(['/']);
     }
@@ -93,5 +93,9 @@ export class ChatComponent {
 
   clickedOnEditSidekickSelection() {
     this.router.navigate(['/choose-sidekick']);
+  }
+
+  onSelectKnowledgeBit(value: any) {
+    this.newMessage = value;
   }
 }
