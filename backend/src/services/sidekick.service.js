@@ -1,4 +1,7 @@
-import masto from "../configs/mastodonclient.js";
+import { addToCollective } from "./buzz.service.js";
+import { send } from "./post.util.service.js";
+import { addToKnowledgeBase } from "./dolphin.service.js";
+import * as Config from "../configs/config.js";
 
 export async function sendMsgToServerOverSidekick(message, sidekick) {
     if (sidekick === 'spark') {
@@ -30,16 +33,14 @@ export async function sendMsgToServerOverSidekick(message, sidekick) {
         } else {
             await send(message);
         }
+    } else if (sidekick === 'dolphin') {
+        await send(message);
+        addToKnowledgeBase(Config.ACCOUNT_NAME, message);
+    } else if (sidekick === 'buzz') {
+        addToCollective(message);
     } else {
         await send(message);
     }
-}
-
-async function send(message) {
-    const status = await masto.v1.statuses.create({
-        status: message,
-    });
-    console.log(status.url);
 }
 
 // from https://stackoverflow.com/questions/175739/how-can-i-check-if-a-string-is-a-valid-number
