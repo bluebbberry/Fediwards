@@ -124,4 +124,8 @@ export class SidekickService {
       this.setSelectedSidekick(null);
     }
   }
+
+  isInQuickSelect(sidekickName: string) {
+    return this.getAllSidekicksInQuickSelectionSet().findIndex(sidekick => sidekick.name === sidekickName) !== -1;
+  }
 }

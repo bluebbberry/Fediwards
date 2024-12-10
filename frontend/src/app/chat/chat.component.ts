@@ -10,6 +10,7 @@ import {UserService} from "../services/user.service";
 import {HomeFeedComponent} from "./home-feed/home-feed.component";
 import {LocalFeedComponent} from "./local-feed/local-feed.component";
 import {GlobalFeedComponent} from "./global-feed/global-feed.component";
+import {DolphinService} from "../services/dolphin.service";
 
 enum Feed {
   HOME, LOCAL, GLOBAL
@@ -30,7 +31,13 @@ export class ChatComponent {
   protected changed: boolean = false;
   public selectedFeed: Feed = Feed.HOME;
 
-  constructor(private http: HttpClient, protected microblogService: MicroblogService, protected sidekickService: SidekickService, private router: Router, private changeDetectionRef: ChangeDetectorRef, protected userService: UserService) {
+  constructor(private http: HttpClient,
+              protected microblogService: MicroblogService,
+              protected sidekickService: SidekickService,
+              private router: Router,
+              private changeDetectionRef: ChangeDetectorRef,
+              protected userService: UserService,
+              private dolphinService: DolphinService) {
     if (!sidekickService.hasUserChosenSidekick) {
       router.navigate(['/']);
     }
@@ -42,6 +49,10 @@ export class ChatComponent {
     this.microblogService.fetchLocalStatuses();
     this.microblogService.fetchGlobalStatuses();
     this.userService.fetchUserInfo();
+
+    if (sidekickService.isInQuickSelect('dolphin')) {
+      this.dolphinService.fetchKnowledgeBase();
+    }
   }
 
   sendToMyAccount() {

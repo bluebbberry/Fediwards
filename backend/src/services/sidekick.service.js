@@ -34,8 +34,8 @@ export async function sendMsgToServerOverSidekick(message, sidekick) {
             await send(message);
         }
     } else if (sidekick === 'dolphin') {
-        addToKnowledgeBase(Config.ACCOUNT_NAME, message);
         await send(message);
+        addToKnowledgeBase(Config.ACCOUNT_NAME, message);
     } else if (sidekick === 'buzz') {
         addToCollective(message);
     } else {
