@@ -16,6 +16,9 @@ export class SidekickService {
     new Sidekick("spark", "Spark", "Spark - Angry Mode (Turns Every Post Into CAPS!!!)", "spark2.png"),
     new Sidekick("hamlet", "Hamlet", "Hamlet - Ends every post with a Shakespeare quote", "hamlet.jpg"),
     new Sidekick("legion", "Legion", "Legion - Post the same post multiple times with #numberOfTimesPosted", "legion.jpg"),
+    new Sidekick("dolphin", "Dolphin", "Dolphin - provides post-suggestions over time by Collecting individual posts send through Dolfin of all users, based on the related hashtags.", "aqua.jpg"),
+    new Sidekick("buzz", "Buzz Lightsting", "Buzz Lightsting - collects individual posts send through Buzz of all users and then randomly sends them out on the participating accounts.", "buzz.jpg"),
+    // Actual Sanity - trains LLM on data
     //new Sidekick("flash", "Flash", "Flash - Allows to program conditional replies"),
     // new Sidekick("ava", "Ava", "Ava - Text Posting Plus Sparkly Commands"),
   ];
@@ -120,5 +123,9 @@ export class SidekickService {
     } else {
       this.setSelectedSidekick(null);
     }
+  }
+
+  isInQuickSelect(sidekickName: string) {
+    return this.getAllSidekicksInQuickSelectionSet().findIndex(sidekick => sidekick.name === sidekickName) !== -1;
   }
 }
