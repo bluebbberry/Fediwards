@@ -95,7 +95,7 @@ export class ChatComponent {
     this.router.navigate(['/choose-sidekick']);
   }
 
-  onSelectKnowledgeBit(value: any) {
-    this.newMessage = value;
+  onSelectKnowledgeBit(target: any) {
+    this.newMessage += target.value;
   }
 }

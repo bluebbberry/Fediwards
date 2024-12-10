@@ -31,9 +31,14 @@
   <!-- Fixed Post Box -->
   <div class="post-box fixed-bottom">
     <div class="mb-3">
-      <select *ngIf="sidekickService.isInQuickSelect('dolphin');" (change)="onSelectKnowledgeBit($event.target)">>
-        <option *ngFor="let knowledgeBit of dolphinService.knowLedgeBase" value="{{ knowledgeBit }}">{{ knowledgeBit }}</option>
-      </select>
+      <div *ngIf="sidekickService.isInQuickSelect('dolphin');">
+        <label>Dolphin-Suggestions:</label>
+        <select class="form-select sidekick-select" (change)="onSelectKnowledgeBit($event.target)">
+          <option *ngFor="let knowledgeBit of dolphinService.knowLedgeBase" [value]="knowledgeBit">
+            {{ knowledgeBit }}
+          </option>
+        </select>
+      </div>
       <textarea [(ngModel)]="newMessage" class="form-control" rows="2" placeholder="What's happening?"></textarea>
     </div>
     <div class="d-flex justify-content-between align-items-center">
